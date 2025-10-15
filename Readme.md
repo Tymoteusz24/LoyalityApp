@@ -62,3 +62,8 @@ To send the solved task, please create a private repository on bitbucket and sha
 `p.sitek@futuremind.com`, `m.nowacki@futuremind.com`, `m.klimczak@futuremind.com`, `t.jurek@futuremind.com`.
 
 If you have any questions, send them to the addresses above.
+
+
+## TODO:
+- handle inifinte loading 
+- parse error better for UX

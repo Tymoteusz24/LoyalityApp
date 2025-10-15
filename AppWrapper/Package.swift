@@ -41,6 +41,7 @@ let package = Package(
                 .module(.ui),
                 .module(.localizations),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "RewardsAPI", package: "RewardsAPI"),
             ]
         ),
         .target(
