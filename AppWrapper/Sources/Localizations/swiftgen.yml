@@ -1,0 +1,11 @@
+input_dir:
+output_dir: ${DERIVED_SOURCES_DIR}
+
+strings:
+  - inputs: en.lproj
+    outputs:
+      templateName: structured-swift5
+      output: Localized.swift
+      params:
+        enumName: Localized
+        publicAccess: true

@@ -1,0 +1,22 @@
+input_dir:
+output_dir: ${DERIVED_SOURCES_DIR}
+
+xcassets:
+  inputs:
+    - Image.xcassets
+    - Color.xcassets
+  outputs:
+    templateName: swift5
+    output: Resource.swift
+    params:
+      enumName: Resource
+      publicAccess: true
+
+fonts:
+  inputs: Fonts
+  outputs:
+    templateName: swift5
+    output: FontFamily.swift
+    params:
+      enumName: FontFamily
+      publicAccess: true

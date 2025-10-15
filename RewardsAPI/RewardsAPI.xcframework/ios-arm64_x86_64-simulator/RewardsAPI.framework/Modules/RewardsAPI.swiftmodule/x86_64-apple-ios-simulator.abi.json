@@ -1,0 +1,1713 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "TypeDecl",
+        "name": "HttpError",
+        "printedName": "HttpError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "badRequest",
+            "printedName": "badRequest",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(RewardsAPI.HttpError.Type) -> RewardsAPI.HttpError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HttpError",
+                    "printedName": "RewardsAPI.HttpError",
+                    "usr": "s:10RewardsAPI9HttpErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "RewardsAPI.HttpError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HttpError",
+                        "printedName": "RewardsAPI.HttpError",
+                        "usr": "s:10RewardsAPI9HttpErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10RewardsAPI9HttpErrorO10badRequestyA2CmF",
+            "mangledName": "$s10RewardsAPI9HttpErrorO10badRequestyA2CmF",
+            "moduleName": "RewardsAPI"
+          },
+          {
+            "kind": "Var",
+            "name": "resourceNotFound",
+            "printedName": "resourceNotFound",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(RewardsAPI.HttpError.Type) -> RewardsAPI.HttpError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HttpError",
+                    "printedName": "RewardsAPI.HttpError",
+                    "usr": "s:10RewardsAPI9HttpErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "RewardsAPI.HttpError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HttpError",
+                        "printedName": "RewardsAPI.HttpError",
+                        "usr": "s:10RewardsAPI9HttpErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10RewardsAPI9HttpErrorO16resourceNotFoundyA2CmF",
+            "mangledName": "$s10RewardsAPI9HttpErrorO16resourceNotFoundyA2CmF",
+            "moduleName": "RewardsAPI"
+          },
+          {
+            "kind": "Var",
+            "name": "serverUnavailable",
+            "printedName": "serverUnavailable",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(RewardsAPI.HttpError.Type) -> RewardsAPI.HttpError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HttpError",
+                    "printedName": "RewardsAPI.HttpError",
+                    "usr": "s:10RewardsAPI9HttpErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "RewardsAPI.HttpError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HttpError",
+                        "printedName": "RewardsAPI.HttpError",
+                        "usr": "s:10RewardsAPI9HttpErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10RewardsAPI9HttpErrorO17serverUnavailableyA2CmF",
+            "mangledName": "$s10RewardsAPI9HttpErrorO17serverUnavailableyA2CmF",
+            "moduleName": "RewardsAPI"
+          },
+          {
+            "kind": "Var",
+            "name": "errorDescription",
+            "printedName": "errorDescription",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI9HttpErrorO16errorDescriptionSSSgvp",
+            "mangledName": "$s10RewardsAPI9HttpErrorO16errorDescriptionSSSgvp",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI9HttpErrorO16errorDescriptionSSSgvg",
+                "mangledName": "$s10RewardsAPI9HttpErrorO16errorDescriptionSSSgvg",
+                "moduleName": "RewardsAPI",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "HttpError",
+                "printedName": "RewardsAPI.HttpError",
+                "usr": "s:10RewardsAPI9HttpErrorO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "HttpError",
+                "printedName": "RewardsAPI.HttpError",
+                "usr": "s:10RewardsAPI9HttpErrorO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI9HttpErrorO2eeoiySbAC_ACtFZ",
+            "mangledName": "$s10RewardsAPI9HttpErrorO2eeoiySbAC_ACtFZ",
+            "moduleName": "RewardsAPI",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI9HttpErrorO9hashValueSivp",
+            "mangledName": "$s10RewardsAPI9HttpErrorO9hashValueSivp",
+            "moduleName": "RewardsAPI",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI9HttpErrorO9hashValueSivg",
+                "mangledName": "$s10RewardsAPI9HttpErrorO9hashValueSivg",
+                "moduleName": "RewardsAPI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI9HttpErrorO4hash4intoys6HasherVz_tF",
+            "mangledName": "$s10RewardsAPI9HttpErrorO4hash4intoys6HasherVz_tF",
+            "moduleName": "RewardsAPI",
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "allCases",
+            "printedName": "allCases",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[RewardsAPI.HttpError]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HttpError",
+                    "printedName": "RewardsAPI.HttpError",
+                    "usr": "s:10RewardsAPI9HttpErrorO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI9HttpErrorO8allCasesSayACGvpZ",
+            "mangledName": "$s10RewardsAPI9HttpErrorO8allCasesSayACGvpZ",
+            "moduleName": "RewardsAPI",
+            "static": true,
+            "implicit": true,
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[RewardsAPI.HttpError]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HttpError",
+                        "printedName": "RewardsAPI.HttpError",
+                        "usr": "s:10RewardsAPI9HttpErrorO"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI9HttpErrorO8allCasesSayACGvgZ",
+                "mangledName": "$s10RewardsAPI9HttpErrorO8allCasesSayACGvgZ",
+                "moduleName": "RewardsAPI",
+                "static": true,
+                "implicit": true,
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:10RewardsAPI9HttpErrorO",
+        "mangledName": "$s10RewardsAPI9HttpErrorO",
+        "moduleName": "RewardsAPI",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "LocalizedError",
+            "printedName": "LocalizedError",
+            "usr": "s:10Foundation14LocalizedErrorP",
+            "mangledName": "$s10Foundation14LocalizedErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CaseIterable",
+            "printedName": "CaseIterable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "AllCases",
+                "printedName": "AllCases",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[RewardsAPI.HttpError]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HttpError",
+                        "printedName": "RewardsAPI.HttpError",
+                        "usr": "s:10RewardsAPI9HttpErrorO"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s12CaseIterableP",
+            "mangledName": "$ss12CaseIterableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "RewardEntity",
+        "printedName": "RewardEntity",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "id",
+            "printedName": "id",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI12RewardEntityV2idSSvp",
+            "mangledName": "$s10RewardsAPI12RewardEntityV2idSSvp",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI12RewardEntityV2idSSvg",
+                "mangledName": "$s10RewardsAPI12RewardEntityV2idSSvg",
+                "moduleName": "RewardsAPI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "name",
+            "printedName": "name",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI12RewardEntityV4nameSSvp",
+            "mangledName": "$s10RewardsAPI12RewardEntityV4nameSSvp",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI12RewardEntityV4nameSSvg",
+                "mangledName": "$s10RewardsAPI12RewardEntityV4nameSSvg",
+                "moduleName": "RewardsAPI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "coverURL",
+            "printedName": "coverURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI12RewardEntityV8coverURL10Foundation0F0Vvp",
+            "mangledName": "$s10RewardsAPI12RewardEntityV8coverURL10Foundation0F0Vvp",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI12RewardEntityV8coverURL10Foundation0F0Vvg",
+                "mangledName": "$s10RewardsAPI12RewardEntityV8coverURL10Foundation0F0Vvg",
+                "moduleName": "RewardsAPI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "pointsCost",
+            "printedName": "pointsCost",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI12RewardEntityV10pointsCostSivp",
+            "mangledName": "$s10RewardsAPI12RewardEntityV10pointsCostSivp",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI12RewardEntityV10pointsCostSivg",
+                "mangledName": "$s10RewardsAPI12RewardEntityV10pointsCostSivg",
+                "moduleName": "RewardsAPI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(id:name:coverURL:pointsCost:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "RewardEntity",
+                "printedName": "RewardsAPI.RewardEntity",
+                "usr": "s:10RewardsAPI12RewardEntityV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10RewardsAPI12RewardEntityV2id4name8coverURL10pointsCostACSS_SS10Foundation0H0VSitcfc",
+            "mangledName": "$s10RewardsAPI12RewardEntityV2id4name8coverURL10pointsCostACSS_SS10Foundation0H0VSitcfc",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "RewardEntity",
+                "printedName": "RewardsAPI.RewardEntity",
+                "usr": "s:10RewardsAPI12RewardEntityV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "RewardEntity",
+                "printedName": "RewardsAPI.RewardEntity",
+                "usr": "s:10RewardsAPI12RewardEntityV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI12RewardEntityV2eeoiySbAC_ACtFZ",
+            "mangledName": "$s10RewardsAPI12RewardEntityV2eeoiySbAC_ACtFZ",
+            "moduleName": "RewardsAPI",
+            "static": true,
+            "implicit": true,
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:10RewardsAPI12RewardEntityV",
+        "mangledName": "$s10RewardsAPI12RewardEntityV",
+        "moduleName": "RewardsAPI",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Combine",
+        "printedName": "Combine",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit.UIImage",
+        "printedName": "UIKit.UIImage",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "API",
+        "printedName": "API",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "API",
+                "printedName": "RewardsAPI.API",
+                "usr": "s:10RewardsAPI0B0C"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI0B0C6sharedACvpZ",
+            "mangledName": "$s10RewardsAPI0B0C6sharedACvpZ",
+            "moduleName": "RewardsAPI",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "API",
+                    "printedName": "RewardsAPI.API",
+                    "usr": "s:10RewardsAPI0B0C"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI0B0C6sharedACvgZ",
+                "mangledName": "$s10RewardsAPI0B0C6sharedACvgZ",
+                "moduleName": "RewardsAPI",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "loadRewards",
+            "printedName": "loadRewards()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[RewardsAPI.RewardEntity]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "RewardEntity",
+                    "printedName": "RewardsAPI.RewardEntity",
+                    "usr": "s:10RewardsAPI12RewardEntityV"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C04loadA0SayAA12RewardEntityVGyYaKF",
+            "mangledName": "$s10RewardsAPI0B0C04loadA0SayAA12RewardEntityVGyYaKF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadRewards",
+            "printedName": "loadRewards()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AnyPublisher",
+                "printedName": "Combine.AnyPublisher<[RewardsAPI.RewardEntity], Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[RewardsAPI.RewardEntity]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RewardEntity",
+                        "printedName": "RewardsAPI.RewardEntity",
+                        "usr": "s:10RewardsAPI12RewardEntityV"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:7Combine12AnyPublisherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C04loadA07Combine12AnyPublisherVySayAA12RewardEntityVGs5Error_pGyF",
+            "mangledName": "$s10RewardsAPI0B0C04loadA07Combine12AnyPublisherVySayAA12RewardEntityVGs5Error_pGyF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadImage",
+            "printedName": "loadImage(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UIImage",
+                "printedName": "UIKit.UIImage",
+                "usr": "c:objc(cs)UIImage"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C9loadImage3forSo7UIImageC10Foundation3URLV_tYaKF",
+            "mangledName": "$s10RewardsAPI0B0C9loadImage3forSo7UIImageC10Foundation3URLV_tYaKF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadImage",
+            "printedName": "loadImage(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AnyPublisher",
+                "printedName": "Combine.AnyPublisher<UIKit.UIImage, Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIImage",
+                    "printedName": "UIKit.UIImage",
+                    "usr": "c:objc(cs)UIImage"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:7Combine12AnyPublisherV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C9loadImage3for7Combine12AnyPublisherVySo7UIImageCs5Error_pG10Foundation3URLV_tF",
+            "mangledName": "$s10RewardsAPI0B0C9loadImage3for7Combine12AnyPublisherVySo7UIImageCs5Error_pG10Foundation3URLV_tF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadAvailablePoints",
+            "printedName": "loadAvailablePoints()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt",
+                "printedName": "Swift.UInt",
+                "usr": "s:Su"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C19loadAvailablePointsSuyYaKF",
+            "mangledName": "$s10RewardsAPI0B0C19loadAvailablePointsSuyYaKF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadAvailablePoints",
+            "printedName": "loadAvailablePoints()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AnyPublisher",
+                "printedName": "Combine.AnyPublisher<Swift.UInt, Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt",
+                    "printedName": "Swift.UInt",
+                    "usr": "s:Su"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:7Combine12AnyPublisherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C19loadAvailablePoints7Combine12AnyPublisherVySus5Error_pGyF",
+            "mangledName": "$s10RewardsAPI0B0C19loadAvailablePoints7Combine12AnyPublisherVySus5Error_pGyF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadCustomer",
+            "printedName": "loadCustomer()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CustomerEntity",
+                "printedName": "RewardsAPI.CustomerEntity",
+                "usr": "s:10RewardsAPI14CustomerEntityV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C12loadCustomerAA0D6EntityVyYaKF",
+            "mangledName": "$s10RewardsAPI0B0C12loadCustomerAA0D6EntityVyYaKF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadCustomer",
+            "printedName": "loadCustomer()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AnyPublisher",
+                "printedName": "Combine.AnyPublisher<RewardsAPI.CustomerEntity, Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CustomerEntity",
+                    "printedName": "RewardsAPI.CustomerEntity",
+                    "usr": "s:10RewardsAPI14CustomerEntityV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:7Combine12AnyPublisherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C12loadCustomer7Combine12AnyPublisherVyAA0D6EntityVs5Error_pGyF",
+            "mangledName": "$s10RewardsAPI0B0C12loadCustomer7Combine12AnyPublisherVyAA0D6EntityVs5Error_pGyF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "activateReward",
+            "printedName": "activateReward(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C14activateReward4withySS_tYaKF",
+            "mangledName": "$s10RewardsAPI0B0C14activateReward4withySS_tYaKF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "activateReward",
+            "printedName": "activateReward(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AnyPublisher",
+                "printedName": "Combine.AnyPublisher<(), Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:7Combine12AnyPublisherV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C14activateReward4with7Combine12AnyPublisherVyyts5Error_pGSS_tF",
+            "mangledName": "$s10RewardsAPI0B0C14activateReward4with7Combine12AnyPublisherVyyts5Error_pGSS_tF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deactivateReward",
+            "printedName": "deactivateReward(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C16deactivateReward4withySS_tYaKF",
+            "mangledName": "$s10RewardsAPI0B0C16deactivateReward4withySS_tYaKF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deactivateReward",
+            "printedName": "deactivateReward(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AnyPublisher",
+                "printedName": "Combine.AnyPublisher<(), Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:7Combine12AnyPublisherV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C16deactivateReward4with7Combine12AnyPublisherVyyts5Error_pGSS_tF",
+            "mangledName": "$s10RewardsAPI0B0C16deactivateReward4with7Combine12AnyPublisherVyyts5Error_pGSS_tF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getActiveRewardIdentifiers",
+            "printedName": "getActiveRewardIdentifiers()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C26getActiveRewardIdentifiersSaySSGyYaKF",
+            "mangledName": "$s10RewardsAPI0B0C26getActiveRewardIdentifiersSaySSGyYaKF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getActiveRewardIdentifiers",
+            "printedName": "getActiveRewardIdentifiers()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AnyPublisher",
+                "printedName": "Combine.AnyPublisher<[Swift.String], Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:7Combine12AnyPublisherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI0B0C26getActiveRewardIdentifiers7Combine12AnyPublisherVySaySSGs5Error_pGyF",
+            "mangledName": "$s10RewardsAPI0B0C26getActiveRewardIdentifiers7Combine12AnyPublisherVySaySSGs5Error_pGyF",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:10RewardsAPI0B0C",
+        "mangledName": "$s10RewardsAPI0B0C",
+        "moduleName": "RewardsAPI",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "hasMissingDesignatedInitializers": true
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "CustomerEntity",
+        "printedName": "CustomerEntity",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "name",
+            "printedName": "name",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10RewardsAPI14CustomerEntityV4nameSSvp",
+            "mangledName": "$s10RewardsAPI14CustomerEntityV4nameSSvp",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10RewardsAPI14CustomerEntityV4nameSSvg",
+                "mangledName": "$s10RewardsAPI14CustomerEntityV4nameSSvg",
+                "moduleName": "RewardsAPI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(name:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CustomerEntity",
+                "printedName": "RewardsAPI.CustomerEntity",
+                "usr": "s:10RewardsAPI14CustomerEntityV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10RewardsAPI14CustomerEntityV4nameACSS_tcfc",
+            "mangledName": "$s10RewardsAPI14CustomerEntityV4nameACSS_tcfc",
+            "moduleName": "RewardsAPI",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CustomerEntity",
+                "printedName": "RewardsAPI.CustomerEntity",
+                "usr": "s:10RewardsAPI14CustomerEntityV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CustomerEntity",
+                "printedName": "RewardsAPI.CustomerEntity",
+                "usr": "s:10RewardsAPI14CustomerEntityV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10RewardsAPI14CustomerEntityV2eeoiySbAC_ACtFZ",
+            "mangledName": "$s10RewardsAPI14CustomerEntityV2eeoiySbAC_ACtFZ",
+            "moduleName": "RewardsAPI",
+            "static": true,
+            "implicit": true,
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:10RewardsAPI14CustomerEntityV",
+        "mangledName": "$s10RewardsAPI14CustomerEntityV",
+        "moduleName": "RewardsAPI",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI"
+      },
+      {
+        "kind": "Import",
+        "name": "SwiftUI",
+        "printedName": "SwiftUI",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI"
+      },
+      {
+        "kind": "Import",
+        "name": "DeveloperToolsSupport",
+        "printedName": "DeveloperToolsSupport",
+        "declKind": "Import",
+        "moduleName": "RewardsAPI"
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/HttpError.swift",
+      "kind": "StringLiteral",
+      "offset": 286,
+      "length": 28,
+      "value": "\"400: Random error occurred\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/HttpError.swift",
+      "kind": "StringLiteral",
+      "offset": 366,
+      "length": 44,
+      "value": "\"404: The requested resource was not found.\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/HttpError.swift",
+      "kind": "StringLiteral",
+      "offset": 463,
+      "length": 47,
+      "value": "\"500: Server unavailable - WE'RE ALL GONNA DIE\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 242,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-0\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 300,
+      "length": 14,
+      "value": "\"card-image-0\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 382,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-1\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 440,
+      "length": 14,
+      "value": "\"card-image-1\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 522,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-2\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 580,
+      "length": 14,
+      "value": "\"card-image-2\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 662,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-3\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 720,
+      "length": 14,
+      "value": "\"card-image-3\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "Array",
+      "offset": 936,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 984,
+      "length": 4,
+      "value": "1253"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 1044,
+      "length": 48,
+      "value": "\"com.futuremind.RewardsAPI.RewardsStorage.queue\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 2446,
+      "length": 15,
+      "value": "\"Apple AirPods\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 2501,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-0\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2561,
+      "length": 3,
+      "value": "200"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 2667,
+      "length": 29,
+      "value": "\"FUJIFILM Instax Mini Camera\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 2736,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-1\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2796,
+      "length": 3,
+      "value": "300"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 2902,
+      "length": 30,
+      "value": "\"Apple iPhone 13 black 128 GB\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 2972,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-2\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3032,
+      "length": 4,
+      "value": "1000"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 3139,
+      "length": 13,
+      "value": "\"Apple Watch\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 3192,
+      "length": 28,
+      "value": "\"picsum.photos\/card-image-3\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/RewardsStorage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3252,
+      "length": 3,
+      "value": "500"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/CustomerStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 191,
+      "length": 10,
+      "value": "\"Customer\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/API.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7670,
+      "length": 3,
+      "value": "500"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/API.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7676,
+      "length": 4,
+      "value": "2000"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/API.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7816,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/API.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7820,
+      "length": 2,
+      "value": "20"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/API.swift",
+      "kind": "FloatLiteral",
+      "offset": 8720,
+      "length": 3,
+      "value": "0.5"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/API.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8726,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Documents\/FutureMind\/recruitment-task-ios-playground\/RewardsAPI\/RewardsAPI\/Sources\/API.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8769,
+      "length": 13,
+      "value": "1000000000"
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Library\/Developer\/Xcode\/DerivedData\/RewardsAPI-gvtzykjtbqqybigamhvrjihtogkz\/Build\/Intermediates.noindex\/ArchiveIntermediates\/RewardsAPI\/IntermediateBuildFilesPath\/RewardsAPI.build\/Release-iphonesimulator\/RewardsAPI.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "kind": "StringLiteral",
+      "offset": 735,
+      "length": 14,
+      "value": "\"card-image-0\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Library\/Developer\/Xcode\/DerivedData\/RewardsAPI-gvtzykjtbqqybigamhvrjihtogkz\/Build\/Intermediates.noindex\/ArchiveIntermediates\/RewardsAPI\/IntermediateBuildFilesPath\/RewardsAPI.build\/Release-iphonesimulator\/RewardsAPI.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "kind": "StringLiteral",
+      "offset": 881,
+      "length": 14,
+      "value": "\"card-image-1\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Library\/Developer\/Xcode\/DerivedData\/RewardsAPI-gvtzykjtbqqybigamhvrjihtogkz\/Build\/Intermediates.noindex\/ArchiveIntermediates\/RewardsAPI\/IntermediateBuildFilesPath\/RewardsAPI.build\/Release-iphonesimulator\/RewardsAPI.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "kind": "StringLiteral",
+      "offset": 1027,
+      "length": 14,
+      "value": "\"card-image-2\""
+    },
+    {
+      "filePath": "\/Users\/kacperpiatkowski\/Library\/Developer\/Xcode\/DerivedData\/RewardsAPI-gvtzykjtbqqybigamhvrjihtogkz\/Build\/Intermediates.noindex\/ArchiveIntermediates\/RewardsAPI\/IntermediateBuildFilesPath\/RewardsAPI.build\/Release-iphonesimulator\/RewardsAPI.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "kind": "StringLiteral",
+      "offset": 1173,
+      "length": 14,
+      "value": "\"card-image-3\""
+    }
+  ]
+}

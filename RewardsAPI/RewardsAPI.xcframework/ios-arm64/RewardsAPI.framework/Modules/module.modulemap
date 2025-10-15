@@ -1,0 +1,11 @@
+framework module RewardsAPI {
+  umbrella header "RewardsAPI.h"
+  export *
+
+  module * { export * }
+}
+
+module RewardsAPI.Swift {
+  header "RewardsAPI-Swift.h"
+  requires objc
+}

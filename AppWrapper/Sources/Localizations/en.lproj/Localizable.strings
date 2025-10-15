@@ -1,0 +1,12 @@
+"dashboard-title" = "Rewards";
+"dashboard-welcome-title" = "Hi, %@";
+"dashboard-welcome-subtitle" = "Welcome to the Club!";
+"dashboard-points-suffix" = "points";
+"dashboard-reedem-points-message" = "Redeem points for exclusive rewards";
+"dashboard-bottom-banner-title" = "Need more points?";
+"dashboard-bottom-banner-message" = "Share our app with others and get extra points!";
+"dashboard-bottom-banner-button-title" = "Share invite code";
+
+"error-alert-title" = "Something went wrong";
+"error-alert-close-button-title" = "Ok";
+"error-alert-message" = "Please try again";
