@@ -18,7 +18,7 @@ private extension AvailablePointsView {
     var content: some View {
         HStack {
             Image(asset: Resource.Image.loop)
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: Margin.atomic) {
                 switch store.state {
                 case .loading:
                     progressView
@@ -27,6 +27,8 @@ private extension AvailablePointsView {
                 case .error:
                     Text(Localized.errorAlertTitle)
                         .textStyle(.Header.medium)
+                    Text(Localized.askToRetry)
+                        .textStyle(.Body.medium)
                 }
             }
             Spacer()
@@ -76,5 +78,9 @@ private extension AvailablePointsView {
 }
 #Preview("Loading") {
     AvailablePointsView.createPreview(initialState: .loading)
+}
+
+#Preview("Error") {
+    AvailablePointsView.createPreview(initialState: .error)
 }
 #endif

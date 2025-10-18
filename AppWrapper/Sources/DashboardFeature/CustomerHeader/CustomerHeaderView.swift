@@ -45,13 +45,12 @@ private extension CustomerHeaderView {
     
     func errorView(_ error: String) -> some View {
         HStack {
-            Spacer()
-            VStack {
-                Text(Localized.errorAlertTitle + ": \(error.description)")
+            VStack(alignment: .leading, spacing: Margin.atomic) {
+                Text(Localized.errorAlertTitle)
                     .textStyle(.Header.medium)
                     .foregroundStyle(Resource.Color.bannerCodeTitle.swiftUIColor)
                     .multilineTextAlignment(.center)
-                Text(Localized.errorAlertMessage)
+                Text(Localized.askToRetry)
                     .textStyle(.Body.medium)
                     .foregroundStyle(Resource.Color.bannerCodeMessage.swiftUIColor)
             }

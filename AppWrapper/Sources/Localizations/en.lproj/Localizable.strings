@@ -8,5 +8,6 @@
 "dashboard-bottom-banner-button-title" = "Share invite code";
 
 "error-alert-title" = "Something went wrong";
+"ask-to-retry" = "Pull to refresh";
 "error-alert-close-button-title" = "Ok";
 "error-alert-message" = "Please try again";
