@@ -6,6 +6,7 @@ public struct AvailablePoints {
     public enum State: Equatable {
         case loading
         case content(Int)
+        case error
     }
 }
 

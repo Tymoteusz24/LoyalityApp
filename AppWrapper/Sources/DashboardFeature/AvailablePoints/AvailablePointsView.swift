@@ -24,6 +24,9 @@ private extension AvailablePointsView {
                     progressView
                 case let .content(points):
                     pointsView(points)
+                case .error:
+                    Text(Localized.errorAlertTitle)
+                        .textStyle(.Header.medium)
                 }
             }
             Spacer()

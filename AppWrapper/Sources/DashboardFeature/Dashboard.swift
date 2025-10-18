@@ -7,6 +7,7 @@ public struct Dashboard {
     public struct State: Equatable {
         var customerHeader: CustomerHeader.State
         var availablePoints: AvailablePoints.State
+        
         var rewardsSection: IdentifiedArrayOf<Reward.State>
         
         // Store raw rewards data to recalculate button states when points load
@@ -17,6 +18,7 @@ public struct Dashboard {
     
     public enum Action {
         case loadData
+        case refreshData
         
         case customerDataLoaded(Result<CustomerEntity, Error>)
         case availablePointsLoaded(Result<UInt, Error>)
@@ -54,6 +56,47 @@ public struct Dashboard {
             state,
             action in
             switch action {
+                // if we got some errors, just refresh parts that contains error, if no error states load all data again
+            case .refreshData:
+                var effects: [Effect<Action>] = []
+                
+                if case .error = state.customerHeader {
+                    state.customerHeader = .loading
+                    effects.append(
+                        .run { send in
+                            await send(
+                                .customerDataLoaded(
+                                    Result {
+                                        try await rewardsAPIClient.loadCustomer()
+                                    }
+                                )
+                            )
+                        }
+                    )
+                }
+                
+                if case .error = state.availablePoints {
+                    state.availablePoints = .loading
+                    effects.append(
+                        .run { send in
+                            await send(
+                                .availablePointsLoaded(
+                                    Result {
+                                        try await rewardsAPIClient.loadAvailablePoints()
+                                    }
+                                )
+                            )
+                        }
+                    )
+                }
+                
+                if effects.count > 0 {
+                    // If there were errors in header or points, just reload those
+                    return .merge(effects)
+                } else {
+                    // load all data again
+                    return .send(.loadData)
+                }
             case .loadData:
                 state.customerHeader = CustomerHeader.State.loading
                 state.availablePoints = AvailablePoints.State.loading
@@ -115,10 +158,8 @@ public struct Dashboard {
                 updateRewardsSection(state: &state)
                 return .none
                 
-            case let .availablePointsLoaded(.failure(error)):
-                // For available points, we'll keep it in loading state on error
-                // Or you can add an error state to AvailablePoints if needed
-                print("Error loading available points: \(error.localizedDescription)")
+            case let .availablePointsLoaded(.failure(_)):
+                state.availablePoints = .error
                 return .none
             case let .rewardsSectionLoaded(.success(rewards)):
                 state.rawRewards = rewards

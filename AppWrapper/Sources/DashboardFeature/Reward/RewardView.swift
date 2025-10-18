@@ -63,12 +63,11 @@ private extension RewardView {
         .overlay(store.state.buttonState == .locked ? Resource.Color.cardLockedImageOverlay.swiftUIColor : .clear)
         .frame(width: Constants.cardWidth, height: Constants.photoHeight)
         .clipped()
+        .background(.black.opacity(0.1))
     }
     
     var placeholderImage: some View {
         Image(asset: Resource.Image.placeholder)
-            .resizable()
-            .scaledToFill()
             .clipped()
             .padding()
     }

@@ -59,7 +59,7 @@ private extension DashboardView {
             BannerCodeView()
         }
         .refreshable {
-            store.send(.loadData)
+            store.send(.refreshData)
         }
     }
     
