@@ -43,6 +43,18 @@ private extension DashboardView {
                     action: \.availablePoints
                 )
             )
+            ScrollView(.horizontal) {
+                LazyHStack {
+                    ForEachStore(
+                        store.scope(
+                            state: \.rewardsSection,
+                            action: \.rewardsSection
+                        )
+                    ) { rewardStore in
+                        RewardView(store: rewardStore)
+                    }
+                }
+            }
             BannerCodeView()
         }
     }
@@ -81,7 +93,13 @@ private extension DashboardView {
     DashboardView.createPreview(
         initialState: Dashboard.State(
             customerHeader: .content("Tymo"),
-            availablePoints: .content(1650)
+            availablePoints: .content(1650),
+            rewardsSection: [
+                .mock(id: "1", name: "Free Coffee", pointsCost: 100, buttonState: .readyToCollect),
+                .mock(id: "2", name: "Premium Meal", pointsCost: 500, buttonState: .readyToCollect),
+                .mock(id: "3", name: "Dessert Special", pointsCost: 250, buttonState: .collected),
+                .mock(id: "4", name: "VIP Experience", pointsCost: 2000, buttonState: .locked)
+            ]
         ),
         includeReducer: false
     )

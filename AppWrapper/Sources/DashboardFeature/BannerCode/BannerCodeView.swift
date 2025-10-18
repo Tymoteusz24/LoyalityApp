@@ -65,9 +65,7 @@ private extension BannerCodeView {
                         height: Constants.buttonHeight
                     )
                     .foregroundColor(Resource.Color.backgroundPrimary.swiftUIColor)
-                    .background(
-                        bannerGradient
-                    )
+                    .primaryGradientBackground()
             }
         )
     }

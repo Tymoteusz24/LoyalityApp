@@ -67,3 +67,4 @@ If you have any questions, send them to the addresses above.
 ## TODO:
 - handle inifinte loading 
 - parse error better for UX
+- ensure that when we got rewards we also have available points so we can update the UI properly with can afford logic
