@@ -21,6 +21,10 @@ public struct Dashboard {
         case customerDataLoaded(Result<CustomerEntity, Error>)
         case availablePointsLoaded(Result<UInt, Error>)
         case rewardsSectionLoaded(Result<[RewardEntity], Error>)
+        case activeRewardsLoaded(Result<[String], Error>)
+        
+        case rewardActivated(Result<Void, Error>)
+        case rewardDeactivated(Result<Void, Error>)
         
         case customerHeader(CustomerHeader.Action)
         case availablePoints(AvailablePoints.Action)
@@ -85,6 +89,15 @@ public struct Dashboard {
                                 }
                             )
                         )
+                    },
+                    .run { send in
+                        await send(
+                            .activeRewardsLoaded(
+                                Result {
+                                    try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                }
+                            )
+                        )
                     }
                 )
                 
@@ -111,6 +124,72 @@ public struct Dashboard {
                 state.rawRewards = rewards
                 updateRewardsSection(state: &state)
                 return .none
+                
+            case let .activeRewardsLoaded(.success(activeIds)):
+                state.collectedRewardIds = Set(activeIds)
+                updateRewardsSection(state: &state)
+                return .none
+                
+            case let .activeRewardsLoaded(.failure(error)):
+                print("Error loading active rewards: \(error.localizedDescription)")
+                return .none
+                
+            case .rewardActivated(.success):
+                // After successful activation, reload active rewards and available points
+                return .merge(
+                    .run { send in
+                        await send(
+                            .activeRewardsLoaded(
+                                Result {
+                                    try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                }
+                            )
+                        )
+                    },
+                    .run { send in
+                        await send(
+                            .availablePointsLoaded(
+                                Result {
+                                    try await rewardsAPIClient.loadAvailablePoints()
+                                }
+                            )
+                        )
+                    }
+                )
+                
+            case let .rewardActivated(.failure(error)):
+                print("Error activating reward: \(error.localizedDescription)")
+                // TODO: Could add error handling/UI feedback here
+                return .none
+                
+            case .rewardDeactivated(.success):
+                // After successful deactivation, reload active rewards and available points
+                return .merge(
+                    .run { send in
+                        await send(
+                            .activeRewardsLoaded(
+                                Result {
+                                    try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                }
+                            )
+                        )
+                    },
+                    .run { send in
+                        await send(
+                            .availablePointsLoaded(
+                                Result {
+                                    try await rewardsAPIClient.loadAvailablePoints()
+                                }
+                            )
+                        )
+                    }
+                )
+                
+            case let .rewardDeactivated(.failure(error)):
+                print("Error deactivating reward: \(error.localizedDescription)")
+                // TODO: Could add error handling/UI feedback here
+                return .none
+                
             case .customerHeader:
                 return .none
                 
@@ -119,22 +198,35 @@ public struct Dashboard {
                 
             case let .rewardsSection(.element(id: id, action: .activateButtonTapped)):
                 // Find the reward that was tapped
-                guard let reward = state.rewardsSection[id: id],
-                      let rewardModel = reward.rewardModel,
-                      reward.buttonState == .collected, // Check if it was just collected
-                      case .content(let currentPoints) = state.availablePoints else {
+                guard let reward = state.rewardsSection[id: id] else {
                     return .none
                 }
                 
-                // Mark reward as collected
-                state.collectedRewardIds.insert(id)
-                
-                // Deduct the points
-                let newPoints = max(0, currentPoints - rewardModel.pointsCosts)
-                state.availablePoints = .content(newPoints)
-                
-                // Update other rewards' button states based on new points
-                updateRewardsSection(state: &state)
+                // Check current state to determine if activating or deactivating
+                // The Reward reducer has already updated the buttonState locally
+                if reward.buttonState == .collected {
+                    // Just collected - call activate API, then reload data
+                    return .run { send in
+                        await send(
+                            .rewardActivated(
+                                Result {
+                                    try await rewardsAPIClient.activateReward(id)
+                                }
+                            )
+                        )
+                    }
+                } else if reward.buttonState == .readyToCollect {
+                    // Just uncollected - call deactivate API, then reload data
+                    return .run { send in
+                        await send(
+                            .rewardDeactivated(
+                                Result {
+                                    try await rewardsAPIClient.deactivateReward(id)
+                                }
+                            )
+                        )
+                    }
+                }
                 
                 return .none
                 

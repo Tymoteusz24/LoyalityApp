@@ -42,13 +42,18 @@ public struct Reward {
         Reduce { state, action in
             switch action {
             case .activateButtonTapped:
-                // Only allow collecting if in readyToCollect state
-                guard state.buttonState == .readyToCollect else {
+                // Toggle between readyToCollect and collected states
+                switch state.buttonState {
+                case .readyToCollect:
+                    // Collect the reward
+                    state.buttonState = .collected
+                case .collected:
+                    // Uncollect the reward
+                    state.buttonState = .readyToCollect
+                case .locked:
+                    // Can't interact with locked rewards
                     return .none
                 }
-                
-                // Mark as collected
-                state.buttonState = .collected
                 return .none
             }
         }

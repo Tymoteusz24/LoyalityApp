@@ -55,7 +55,11 @@ private extension DashboardView {
                     }
                 }
             }
+       
             BannerCodeView()
+        }
+        .refreshable {
+            store.send(.loadData)
         }
     }
     
