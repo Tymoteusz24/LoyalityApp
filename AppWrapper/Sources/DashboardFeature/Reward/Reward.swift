@@ -37,6 +37,22 @@ public struct Reward {
     public enum Action: Equatable {
         case activateButtonTapped
     }
+    
+    public var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case .activateButtonTapped:
+                // Only allow collecting if in readyToCollect state
+                guard state.buttonState == .readyToCollect else {
+                    return .none
+                }
+                
+                // Mark as collected
+                state.buttonState = .collected
+                return .none
+            }
+        }
+    }
 }
 
 struct RewardModel: Equatable {

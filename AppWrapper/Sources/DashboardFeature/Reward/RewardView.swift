@@ -83,6 +83,7 @@ private extension RewardView {
     
     var rewardButton: some View {
         AsyncButton() {
+            await store.send(.activateButtonTapped).finish()
         } label: {
             rewardButtonContent
         }

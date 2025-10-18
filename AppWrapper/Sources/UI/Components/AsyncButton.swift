@@ -26,17 +26,12 @@ public struct AsyncButton<Label: View>: View {
                     isDisabled = true
                 }
                 
-                Task {
-                    var progressViewTask: Task<Void, Error>?
-                    
+                Task { @MainActor in
                     if actionOptions.contains(.showProgressView) {
-                        progressViewTask = Task {
-                            showProgressView = true
-                        }
+                        showProgressView = true
                     }
                     
                     await action()
-                    progressViewTask?.cancel()
                     
                     isDisabled = false
                     showProgressView = false
