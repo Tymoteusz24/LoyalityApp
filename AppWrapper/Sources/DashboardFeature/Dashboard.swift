@@ -8,7 +8,7 @@ public struct Dashboard {
         var customerHeader: CustomerHeader.State
         var availablePoints: AvailablePoints.State
         
-        var rewardsSection: IdentifiedArrayOf<Reward.State>
+        var rewardsSection: RewardsSection
         
         // Store raw rewards data to recalculate button states when points load
         fileprivate var rawRewards: [RewardEntity] = []
@@ -90,8 +90,36 @@ public struct Dashboard {
                     )
                 }
                 
+                if case .error = state.rewardsSection {
+                    state.rewardsSection = .loading
+                    state.rawRewards = []
+                    state.collectedRewardIds = []
+                    effects.append(
+                        .run { send in
+                            await send(
+                                .rewardsSectionLoaded(
+                                    Result {
+                                        try await rewardsAPIClient.loadRewards()
+                                    }
+                                )
+                            )
+                        }
+                    )
+                    effects.append(
+                        .run { send in
+                            await send(
+                                .activeRewardsLoaded(
+                                    Result {
+                                        try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                    }
+                                )
+                            )
+                        }
+                    )
+                }
+                
                 if effects.count > 0 {
-                    // If there were errors in header or points, just reload those
+                    // If there were errors in header, points, or rewards, just reload those
                     return .merge(effects)
                 } else {
                     // load all data again
@@ -100,7 +128,7 @@ public struct Dashboard {
             case .loadData:
                 state.customerHeader = CustomerHeader.State.loading
                 state.availablePoints = AvailablePoints.State.loading
-                state.rewardsSection = IdentifiedArrayOf<Reward.State>()
+                state.rewardsSection = .loading
                 state.rawRewards = []
                 state.collectedRewardIds = []
                 
@@ -166,6 +194,10 @@ public struct Dashboard {
                 updateRewardsSection(state: &state)
                 return .none
                 
+            case let .rewardsSectionLoaded(.failure(error)):
+                state.rewardsSection = .error
+                return .none
+                
             case let .activeRewardsLoaded(.success(activeIds)):
                 state.collectedRewardIds = Set(activeIds)
                 updateRewardsSection(state: &state)
@@ -173,6 +205,7 @@ public struct Dashboard {
                 
             case let .activeRewardsLoaded(.failure(error)):
                 print("Error loading active rewards: \(error.localizedDescription)")
+                state.rewardsSection = .error
                 return .none
                 
             case .rewardActivated(.success):
@@ -239,7 +272,8 @@ public struct Dashboard {
                 
             case let .rewardsSection(.element(id: id, action: .activateButtonTapped)):
                 // Find the reward that was tapped
-                guard let reward = state.rewardsSection[id: id] else {
+                guard case .content(let rewards) = state.rewardsSection,
+                      let reward = rewards[id: id] else {
                     return .none
                 }
                 
@@ -273,13 +307,13 @@ public struct Dashboard {
                 
             case .rewardsSection:
                 return .none
-                
-            case .rewardsSectionLoaded(.failure(_)):
-                return .none
             }
         }
-        .forEach(\.rewardsSection, action: \.rewardsSection) {
-            Reward()
+        .ifLet(\.rewardsSectionContent, action: \.rewardsSection) {
+            EmptyReducer()
+                .forEach(\.self, action: \.self) {
+                    Reward()
+                }
         }
     }
 }
@@ -298,7 +332,7 @@ extension Dashboard {
             availablePoints = 0
         }
         
-        state.rewardsSection = IdentifiedArray(uniqueElements: state.rawRewards.map { reward in
+        let rewards = IdentifiedArray(uniqueElements: state.rawRewards.map { reward in
             let rewardModel = RewardModel(entity: reward)
             
             // Preserve collected state if reward was already collected
@@ -311,6 +345,25 @@ extension Dashboard {
             
             return Reward.State(rewardModel: rewardModel, buttonState: buttonState)
         })
+        
+        state.rewardsSection = .content(rewards)
+    }
+}
+
+// MARK: - Computed Properties
+extension Dashboard.State {
+    var rewardsSectionContent: IdentifiedArrayOf<Reward.State>? {
+        get {
+            guard case .content(let rewards) = rewardsSection else { return nil }
+            return rewards
+        }
+        set {
+            guard let newValue else {
+                rewardsSection = .loading
+                return
+            }
+            rewardsSection = .content(newValue)
+        }
     }
 }
 
@@ -320,7 +373,7 @@ extension Dashboard.State {
     public init(
         customerHeader: CustomerHeader.State = CustomerHeader.State.loading,
         availablePoints: AvailablePoints.State = AvailablePoints.State.loading,
-        rewardsSection: IdentifiedArrayOf<Reward.State> = []
+        rewardsSection: RewardsSection = .loading
     ) {
         self.customerHeader = customerHeader
         self.availablePoints = availablePoints

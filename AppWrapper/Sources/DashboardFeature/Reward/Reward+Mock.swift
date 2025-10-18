@@ -1,5 +1,5 @@
 //
-//  Reward.swift
+//  Reward+Mock.swift
 //  AppWrapper
 //
 //  Created by Tymoteusz Pasieka on 10/18/25.
