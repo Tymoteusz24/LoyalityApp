@@ -53,16 +53,20 @@ private extension DashboardView {
     }
     
     var rewardsSection: some View {
-        Group {
+        VStack {
             switch store.rewardsSection {
             case .loading:
                 rewardsLoadingView
+                    .transition(.opacity)
             case .content:
                 rewardsContentView
+                    .transition(.opacity)
             case .error:
                 rewardsErrorView
+                    .transition(.opacity)
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: store.rewardsSection)
         .padding(.top, Margin.medium)
     }
     
@@ -96,12 +100,18 @@ private extension DashboardView {
     
     var rewardsErrorView: some View {
         VStack(spacing: Margin.medium) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 40))
+                .foregroundStyle(Resource.Color.bannerCodeTitle.swiftUIColor.opacity(0.6))
+                .padding(.bottom, Margin.small)
+            
             Text(Localized.errorAlertTitle)
                 .textStyle(.Header.medium)
                 .foregroundStyle(Resource.Color.bannerCodeTitle.swiftUIColor)
             Text(Localized.askToRetry)
                 .textStyle(.Body.medium)
                 .foregroundStyle(Resource.Color.bannerCodeMessage.swiftUIColor)
+                .multilineTextAlignment(.center)
         }
         .padding(.vertical, Margin.big)
         .padding(.horizontal)

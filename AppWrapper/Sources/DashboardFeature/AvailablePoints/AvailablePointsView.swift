@@ -22,15 +22,21 @@ private extension AvailablePointsView {
                 switch store.state {
                 case .loading:
                     progressView
+                        .transition(.opacity)
                 case let .content(points):
                     pointsView(points)
+                        .transition(.opacity)
                 case .error:
-                    Text(Localized.errorAlertTitle)
-                        .textStyle(.Header.medium)
-                    Text(Localized.askToRetry)
-                        .textStyle(.Body.medium)
+                    VStack(alignment: .leading, spacing: Margin.atomic) {
+                        Text(Localized.errorAlertTitle)
+                            .textStyle(.Header.medium)
+                        Text(Localized.askToRetry)
+                            .textStyle(.Body.medium)
+                    }
+                    .transition(.opacity)
                 }
             }
+            .animation(.easeInOut(duration: 0.3), value: store.state)
             Spacer()
         }
     }

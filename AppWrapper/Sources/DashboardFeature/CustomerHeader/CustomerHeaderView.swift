@@ -21,13 +21,19 @@ private extension CustomerHeaderView {
                 switch store.state {
                 case .loading:
                     progressView
+                        .transition(.opacity)
                 case let .content(name):
-                    welcomeTitle(name)
-                    welcomeSubitlte
+                    VStack(alignment: .leading, spacing: .zero) {
+                        welcomeTitle(name)
+                        welcomeSubitlte
+                    }
+                    .transition(.opacity)
                 case let .error(error):
                     errorView(error)
+                        .transition(.opacity)
                 }
             }
+            .animation(.easeInOut(duration: 0.3), value: store.state)
             Spacer()
             cardButton
         }
