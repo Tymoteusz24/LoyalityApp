@@ -67,14 +67,14 @@ private extension DashboardView {
     }
     
     var rewardsLoadingView: some View {
-        HStack {
-            Spacer()
-            ProgressView()
-                .tint(Resource.Color.loaderPrimary.swiftUIColor)
-            Spacer()
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 0) {
+                ForEach(0..<3, id: \.self) { _ in
+                    RewardPlaceholderView()
+                }
+            }
+            .padding(.horizontal, Margin.small)
         }
-        .padding(.vertical, Margin.big)
-        .padding(.horizontal)
     }
     
     @ViewBuilder
@@ -157,7 +157,19 @@ private extension DashboardView {
     DashboardView.createPreview(
         initialState: Dashboard.State(
             customerHeader: .loading,
-            availablePoints: .loading
+            availablePoints: .loading,
+            rewardsSection: .loading
+        ),
+        includeReducer: false
+    )
+}
+
+#Preview("Rewards Error") {
+    DashboardView.createPreview(
+        initialState: Dashboard.State(
+            customerHeader: .content("Tymo"),
+            availablePoints: .content(1650),
+            rewardsSection: .error
         ),
         includeReducer: false
     )

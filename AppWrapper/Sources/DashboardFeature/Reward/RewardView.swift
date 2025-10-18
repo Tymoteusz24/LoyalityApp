@@ -5,6 +5,9 @@ import UI
 import ComposableArchitecture
 
 struct RewardView: View {
+    
+    typealias Constants = LoyalityCardConstants
+    
     let store: StoreOf<Reward>
     
     var body: some View {
@@ -35,13 +38,6 @@ struct RewardView: View {
 }
 
 private extension RewardView {
-    enum Constants {
-        static let photoHeight: CGFloat = 170.0
-        static let buttonWidth: CGFloat = 120.0
-        static let buttonHeight: CGFloat = 32.0
-        static let cardWidth: CGFloat = 200.0
-        static let cardHeight: CGFloat = 286.0
-    }
 
     var rewardImage: some View {
         AsyncImage(url: store.state.rewardModel?.coverURL) { phase in
