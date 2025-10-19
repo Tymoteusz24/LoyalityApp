@@ -81,6 +81,13 @@ let package = Package(
                 .module(.dashboardFeature),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ]
+        ),
+        .testTarget(
+            name: "DataLayerTests",
+            dependencies: [
+                .module(.dataLayer),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
         )
     ]
 )

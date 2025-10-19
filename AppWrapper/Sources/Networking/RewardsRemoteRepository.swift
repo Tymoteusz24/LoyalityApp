@@ -1,6 +1,6 @@
 //
 //  RewardsRemoteRepository.swift
-//  DataLayer
+//  Networking
 //
 //  Created by Tymoteusz Pasieka on 10/19/25.
 //
