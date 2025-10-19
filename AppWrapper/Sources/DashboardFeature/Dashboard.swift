@@ -11,9 +11,9 @@ public struct Dashboard {
         var rewardsSection: RewardsSection
         
         // Store raw rewards data to recalculate button states when points load
-        fileprivate var rawRewards: [RewardEntity] = []
+        var rawRewards: [RewardEntity] = []
         // Track collected reward IDs to preserve collected state
-        fileprivate var collectedRewardIds: Set<String> = []
+        var collectedRewardIds: Set<String> = []
     }
     
     public enum Action {
@@ -186,7 +186,7 @@ public struct Dashboard {
                 updateRewardsSection(state: &state)
                 return .none
                 
-            case let .availablePointsLoaded(.failure(_)):
+            case .availablePointsLoaded(.failure):
                 state.availablePoints = .error
                 return .none
             case let .rewardsSectionLoaded(.success(rewards)):
@@ -194,7 +194,7 @@ public struct Dashboard {
                 updateRewardsSection(state: &state)
                 return .none
                 
-            case let .rewardsSectionLoaded(.failure(error)):
+            case .rewardsSectionLoaded(.failure):
                 state.rewardsSection = .error
                 return .none
                 

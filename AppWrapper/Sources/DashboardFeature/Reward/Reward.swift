@@ -69,15 +69,7 @@ struct RewardModel: Equatable {
     init(entity: RewardEntity) {
         self.id = entity.id
         self.name = entity.name
-        
-        // Fix incomplete URLs by adding https:// scheme if missing
-        let urlString = entity.coverURL.absoluteString
-        if urlString.hasPrefix("http://") || urlString.hasPrefix("https://") {
-            self.coverURL = entity.coverURL
-        } else {
-            // Add https:// scheme to incomplete URLs
-            self.coverURL = URL(string: "https://\(urlString)") ?? entity.coverURL
-        }
+        self.coverURL = entity.coverURL
         
         self.pointsCosts = Int(entity.pointsCost)
     }

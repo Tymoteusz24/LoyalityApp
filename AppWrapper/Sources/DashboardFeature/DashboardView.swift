@@ -6,9 +6,14 @@ import SwiftUI
 
 public struct DashboardView: View {
     private let store: StoreOf<Dashboard>
+    private let imageLoader: (URL) async throws -> UIImage
     
-    public init(store: StoreOf<Dashboard>) {
+    public init(
+        store: StoreOf<Dashboard>,
+        imageLoader: @escaping (URL) async throws -> UIImage
+    ) {
         self.store = store
+        self.imageLoader = imageLoader
     }
     
     public var body: some View {
@@ -90,7 +95,10 @@ private extension DashboardView {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 0) {
                     ForEachStore(rewardsStore) { rewardStore in
-                        RewardView(store: rewardStore)
+                        RewardView(
+                            store: rewardStore,
+                            imageLoader: imageLoader
+                        )
                     }
                 }
                 .padding(.horizontal, Margin.small)
@@ -142,6 +150,8 @@ private extension DashboardView {
                 if includeReducer {
                     Dashboard()
                 }
+            }, imageLoader: { _ in
+                UIImage(systemName: "star.fill")!
             }
         )
     }

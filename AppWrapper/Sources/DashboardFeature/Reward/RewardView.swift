@@ -9,6 +9,7 @@ struct RewardView: View {
     typealias Constants = LoyalityCardConstants
     
     let store: StoreOf<Reward>
+    let imageLoader: (URL) async throws -> UIImage
     
     var body: some View {
         VStack {
@@ -40,20 +41,18 @@ struct RewardView: View {
 private extension RewardView {
 
     var rewardImage: some View {
-        AsyncImage(url: store.state.rewardModel?.coverURL) { phase in
-            switch phase {
-            case .empty:
-                placeholderImage
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-            case .failure:
-                placeholderImage
-            @unknown default:
-                placeholderImage
-            }
+        RewardAsyncImage(
+            url: store.state.rewardModel?.coverURL,
+            imageLoader: imageLoader
+        ) { image in
+            image
+                .resizable()
+                .scaledToFill()
+                .clipped()
+        } placeholder: {
+            placeholderImage
+        } error: { _ in
+            placeholderImage
         }
         .blur(radius: store.state.buttonState == .locked ? 3 : 0)
         .overlay(store.state.buttonState == .locked ? Resource.Color.cardLockedImageOverlay.swiftUIColor : .clear)
@@ -149,6 +148,10 @@ private extension RewardView {
             buttonState: .readyToCollect
         )) {
             Reward()
+        },
+        imageLoader: { _ in
+            // Mock image loader for preview
+            UIImage(systemName: "photo") ?? UIImage()
         }
     )
 }
@@ -161,6 +164,10 @@ private extension RewardView {
             buttonState: .locked
         )) {
             Reward()
+        },
+        imageLoader: { _ in
+            // Mock image loader for preview
+            UIImage(systemName: "photo") ?? UIImage()
         }
     )
 }
@@ -173,6 +180,10 @@ private extension RewardView {
             buttonState: .collected
         )) {
             Reward()
+        },
+        imageLoader: { _ in
+            // Mock image loader for preview
+            UIImage(systemName: "photo") ?? UIImage()
         }
     )
 }

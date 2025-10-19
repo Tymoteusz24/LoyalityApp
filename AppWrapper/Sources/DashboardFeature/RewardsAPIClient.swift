@@ -7,21 +7,22 @@
 
 import Foundation
 import ComposableArchitecture
-import Foundation
 import RewardsAPI
+import UIKit
 
 @DependencyClient
-struct RewardsAPIClient {
-    var loadCustomer: @Sendable () async throws -> CustomerEntity
-    var loadAvailablePoints: @Sendable () async throws -> UInt
-    var loadRewards: @Sendable () async throws -> [RewardEntity]
-    var activateReward: @Sendable (String) async throws -> Void
-    var deactivateReward: @Sendable (String) async throws -> Void
-    var getActiveRewardIdentifiers: @Sendable () async throws -> [String]
+public struct RewardsAPIClient {
+    public var loadCustomer: @Sendable () async throws -> CustomerEntity
+    public var loadAvailablePoints: @Sendable () async throws -> UInt
+    public var loadRewards: @Sendable () async throws -> [RewardEntity]
+    public var activateReward: @Sendable (String) async throws -> Void
+    public var deactivateReward: @Sendable (String) async throws -> Void
+    public var getActiveRewardIdentifiers: @Sendable () async throws -> [String]
+    public var loadImage: @Sendable (URL) async throws -> UIImage
 }
 
 extension RewardsAPIClient: DependencyKey {
-    static let liveValue = Self(
+    public static let liveValue = Self(
         loadCustomer: {
             try await API.shared.loadCustomer()
         },
@@ -39,11 +40,14 @@ extension RewardsAPIClient: DependencyKey {
         },
         getActiveRewardIdentifiers: {
             try await API.shared.getActiveRewardIdentifiers()
+        },
+        loadImage: { url in
+            try await API.shared.loadImage(for: url)
         }
     )
 }
 
-extension DependencyValues {
+public extension DependencyValues {
     var rewardsAPIClient: RewardsAPIClient {
         get { self[RewardsAPIClient.self] }
         set { self[RewardsAPIClient.self] = newValue }

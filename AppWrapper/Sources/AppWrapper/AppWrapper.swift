@@ -4,6 +4,8 @@ import SwiftUI
 import UI
 
 public struct AppWrapper: App {
+    @Dependency(\.rewardsAPIClient) var rewardsAPIClient
+    
     public init() {
         Appearance.setup()
     }
@@ -15,7 +17,12 @@ public struct AppWrapper: App {
 
     public var body: some Scene {
         WindowGroup {
-            DashboardView(store: store)
+            DashboardView(
+                store: store,
+                imageLoader: { [rewardsAPIClient] url in
+                    try await rewardsAPIClient.loadImage(url)
+                }
+            )
         }
     }
 }

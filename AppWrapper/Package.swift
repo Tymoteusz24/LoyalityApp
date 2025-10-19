@@ -65,6 +65,13 @@ let package = Package(
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
+        ),
+        .testTarget(
+            name: "DashboardFeatureTests",
+            dependencies: [
+                .module(.dashboardFeature),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
         )
     ]
 )
