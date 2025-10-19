@@ -63,8 +63,93 @@ To send the solved task, please create a private repository on bitbucket and sha
 
 If you have any questions, send them to the addresses above.
 
+---
 
-## TODO:
-- handle inifinte loading 
-- parse error better for UX
-- ensure that when we got rewards we also have available points so we can update the UI properly with can afford logic
+## Implementation Details
+
+### Architecture Decisions
+
+**DataLayer Module**
+- Created a separate `DataLayer` module with single-responsibility repositories (`CustomerRemoteRepository`, `RewardsRemoteRepository`, `ImageLoader`)
+- Follows the **Single Responsibility Principle** (SOLID) - each repository handles only one domain concern
+- Acts as an abstraction layer over the low-level `RewardsAPI`, decoupling it from feature modules
+- Enables reusability across future features without tight coupling to specific implementations
+- Introduced domain models (`CustomerModel`, `RewardModel`) that are independent of API entities
+
+**Modular Architecture**
+- Clean separation of concerns with distinct modules:
+  - `DataLayer` - Data access and networking
+  - `DashboardFeature` - Business logic and state management
+  - `UI` - Reusable UI components
+  - `Resources` - Assets and localization
+- Each module has well-defined boundaries and dependencies
+
+**Composable Architecture (TCA)**
+- Leveraged TCA best practices throughout the application
+- Structured reducers with clear action hierarchies (`DataLoadingAction`, `RewardManagementAction`)
+- Dependency injection via TCA's `@Dependency` system for testability
+- Exhaustive testing with `TestStore`
+
+**Data Loading Strategy**
+- Implemented **parallel, independent data loading** for better UX and app responsiveness
+- Each section (customer, points, rewards) loads independently and updates UI as soon as data arrives
+- Handles partial failures gracefully - one section failing doesn't block others
+- **Trade-off**: More complex implementation vs simpler sequential loading
+  - ✅ Pros: Better perceived performance, resilient to partial failures, responsive UI
+  - ⚠️ Cons: More complex state management and edge cases
+  - **Decision**: This approach was chosen for optimal user experience, though business/product teams should evaluate if the added complexity is justified for future maintenance
+
+**Error Handling**
+- Comprehensive error handling with user-friendly error toast notifications
+- Graceful degradation - sections show error states independently
+- Pull-to-refresh retries only failed sections (intelligent retry logic)
+- No optimistic UI updates - UI always reflects actual server state to prevent confusion
+- API failures trigger data reload to ensure UI consistency
+
+**Image Loading**
+- Custom `ImageLoader` with retry logic (3 attempts with exponential backoff)
+- Simple in-memory caching via `ImageCache` for session-level performance
+- **Note**: In a production app, this should be extended with:
+  - Persistent caching between sessions
+  - Cache eviction policies (LRU, size limits)
+  - Or use battle-tested third-party libraries like **Kingfisher** or **SDWebImage**
+
+### Features Implemented
+
+✅ Reward activation/deactivation with proper state management  
+✅ Real-time points balance updates  
+✅ Loading states for all sections  
+✅ Error handling with user-friendly toast messages  
+✅ Error recovery with pull-to-refresh  
+✅ Image loading with automatic retry on failure  
+✅ Locked/unlocked reward states based on points  
+✅ UI consistency - reverts on API failures (no stale state)  
+✅ Comprehensive unit tests for core reducer logic  
+✅ Edge case handling (e.g., active rewards loading before/after rewards list)  
+
+### Possible Improvements
+
+**Error Handling**
+- Add timeout handling for API calls with configurable timeouts
+- Implement more granular error messages based on HTTP status codes
+- Add retry strategies for transient network failures (beyond images)
+- Integrate crash reporting (e.g., Crashlytics) for non-fatal error logging
+
+**Image Loading**
+- Replace custom caching with production-ready library (Kingfisher/SDWebImage) or
+- Add persistent disk cache with size limits and TTL
+
+**Data Loading**
+- Add mechanism to ensure rewards section only displays when both rewards and points are loaded (currently handled but could be more explicit)
+- Consider implementing request deduplication for rapid refresh scenarios
+
+**State Management**
+- Evaluate if parallel loading complexity is justified vs simpler sequential loading
+
+**UX Enhancements**
+- Display more contextual error messages
+
+**Testing**
+- Expand test coverage for edge cases
+- Add integration tests for the full data flow
+- Add UI tests for critical user journeys
