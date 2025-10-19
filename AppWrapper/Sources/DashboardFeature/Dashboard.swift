@@ -236,7 +236,7 @@ extension Dashboard {
             return .none
         
         // if we fail loading active rewards, we don't want toshow rewards section so user is not misled
-        case let .activeRewardsLoaded(.failure(error)):
+        case .activeRewardsLoaded(.failure(_)):
             state.rewardsSection = .error
             return .none
         }
@@ -254,13 +254,13 @@ extension Dashboard {
             state.errorToast = nil
             return reloadAfterRewardChange()
             
-        case let .rewardActivated(.failure(error)):
+        case .rewardActivated(.failure(_)):
             state.errorToast = "Failed to activate reward"
             // perform crashlytics non-fatal error logging here
             // Reload data to revert UI to actual state
             return reloadAfterRewardChange()
             
-        case let .rewardDeactivated(.failure(error)):
+        case .rewardDeactivated(.failure(_)):
             state.errorToast = "Failed to deactivate reward"
             // perform crashlytics non-fatal error logging here
             // Reload data to revert UI to actual state
