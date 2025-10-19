@@ -29,6 +29,16 @@ public struct DashboardView: View {
                 .background {
                     gradient
                 }
+                .overlay(alignment: .top) {
+                    if let errorMessage = store.errorToast {
+                        ErrorToastView(message: errorMessage) {
+                            store.send(.dismissErrorToast)
+                        }
+                        .padding(.top, 8)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                    }
+                }
+                .animation(.spring(response: 0.3, dampingFraction: 0.8), value: store.errorToast)
         }
     }
 }

@@ -9,8 +9,7 @@ public struct AsyncButton<Label: View>: View {
     public init(
         action: @escaping () async -> Void,
         actionOptions: Set<AsyncButton<Label>.ActionOption> = Set(ActionOption.allCases),
-        label: @escaping () -> Label
-    ) {
+        label: @escaping () -> Label) {
         self.action = action
         self.actionOptions = actionOptions
         self.label = label

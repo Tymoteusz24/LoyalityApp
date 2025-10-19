@@ -14,8 +14,7 @@ public struct PrimaryGradientBackgroundModifier: ViewModifier {
     
     public init(
         cornerRadius: CGFloat = CornerRadius.medium,
-        gradientDirection: GradientView.Direction = .rightToLeft
-    ) {
+        gradientDirection: GradientView.Direction = .rightToLeft ) {
         self.cornerRadius = cornerRadius
         self.gradientDirection = gradientDirection
     }

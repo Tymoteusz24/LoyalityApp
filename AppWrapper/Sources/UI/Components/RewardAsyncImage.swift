@@ -78,8 +78,7 @@ extension RewardAsyncImage {
         cache: ImageCache = .shared,
         @ViewBuilder content: @escaping (Image) -> Content,
         @ViewBuilder placeholder: @escaping () -> Placeholder,
-        @ViewBuilder error: @escaping (Error) -> ErrorView
-    ) {
+        @ViewBuilder error: @escaping (Error) -> ErrorView) {
         self.url = url
         self.imageLoader = imageLoader
         self.cache = cache

@@ -42,18 +42,9 @@ public struct Reward {
         Reduce { state, action in
             switch action {
             case .activateButtonTapped:
-                // Toggle between readyToCollect and collected states
-                switch state.buttonState {
-                case .readyToCollect:
-                    // Collect the reward
-                    state.buttonState = .collected
-                case .collected:
-                    // Uncollect the reward
-                    state.buttonState = .readyToCollect
-                case .locked:
-                    // Can't interact with locked rewards
-                    return .none
-                }
+                // Don't update state optimistically
+                // Let the parent Dashboard reducer handle the API call
+                // and reload data to reflect the actual state
                 return .none
             }
         }

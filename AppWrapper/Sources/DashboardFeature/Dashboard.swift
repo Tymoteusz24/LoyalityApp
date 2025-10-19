@@ -13,6 +13,9 @@ public struct Dashboard {
         var rawRewards: [RewardModel] = []
         // Track collected reward IDs to preserve collected state
         var collectedRewardIds: Set<String> = []
+        
+        // Error toast state
+        var errorToast: String?
     }
     
     public enum Action {
@@ -25,6 +28,9 @@ public struct Dashboard {
         
         // Reward management actions
         case rewardManagement(RewardManagementAction)
+        
+        // Error handling
+        case dismissErrorToast
         
         // Child reducer actions
         case customerHeader(CustomerHeader.Action)
@@ -71,6 +77,10 @@ public struct Dashboard {
                 
             case let .rewardManagement(rewardAction):
                 return handleRewardManagement(action: rewardAction, state: &state)
+                
+            case .dismissErrorToast:
+                state.errorToast = nil
+                return .none
                 
             case .customerHeader, .availablePoints:
                 return .none
@@ -241,12 +251,20 @@ extension Dashboard {
     ) -> Effect<Action> {
         switch action {
         case .rewardActivated(.success), .rewardDeactivated(.success):
+            state.errorToast = nil
             return reloadAfterRewardChange()
+            
         case let .rewardActivated(.failure(error)):
-            return .none
+            state.errorToast = "Failed to activate reward"
+            // perform crashlytics non-fatal error logging here
+            // Reload data to revert UI to actual state
+            return reloadAfterRewardChange()
             
         case let .rewardDeactivated(.failure(error)):
-            return .none
+            state.errorToast = "Failed to deactivate reward"
+            // perform crashlytics non-fatal error logging here
+            // Reload data to revert UI to actual state
+            return reloadAfterRewardChange()
         }
     }
     
@@ -256,11 +274,14 @@ extension Dashboard {
             return .none
         }
         
+        // Check the current state (no optimistic update anymore)
+        // If readyToCollect, user wants to collect -> activate
+        // If collected, user wants to uncollect -> deactivate
         switch reward.buttonState {
-        case .collected:
+        case .readyToCollect:
             return activateRewardEffect(id: id)
             
-        case .readyToCollect:
+        case .collected:
             return deactivateRewardEffect(id: id)
             
         case .locked:
@@ -339,10 +360,12 @@ extension Dashboard.State {
     public init(
         customerHeader: CustomerHeader.State = CustomerHeader.State.loading,
         availablePoints: AvailablePoints.State = AvailablePoints.State.loading,
-        rewardsSection: RewardsSection = .loading
+        rewardsSection: RewardsSection = .loading,
+        errorToast: String? = nil
     ) {
         self.customerHeader = customerHeader
         self.availablePoints = availablePoints
         self.rewardsSection = rewardsSection
+        self.errorToast = errorToast
     }
 }
