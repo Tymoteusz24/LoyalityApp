@@ -49,13 +49,13 @@ private extension RewardView {
                 .resizable()
                 .scaledToFill()
                 .clipped()
+                .blur(radius: store.state.buttonState == .locked ? 3 : 0)
+                .overlay(store.state.buttonState == .locked ? Resource.Color.cardLockedImageOverlay.swiftUIColor : .clear)
         } placeholder: {
             placeholderImage
         } error: { _ in
             placeholderImage
         }
-        .blur(radius: store.state.buttonState == .locked ? 3 : 0)
-        .overlay(store.state.buttonState == .locked ? Resource.Color.cardLockedImageOverlay.swiftUIColor : .clear)
         .frame(width: Constants.cardWidth, height: Constants.photoHeight)
         .clipped()
         .background(.black.opacity(0.1))
