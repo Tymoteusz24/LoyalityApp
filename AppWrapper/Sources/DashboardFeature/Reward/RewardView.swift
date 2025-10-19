@@ -70,7 +70,7 @@ private extension RewardView {
     var rewardLabel: some View {
         Text(store.state.rewardModel?.name ?? "")
             .textStyle(.Header.medium)
-            .foregroundStyle(Resource.Color.cardUnlockedTitle.swiftUIColor)
+            .foregroundStyle(store.state.buttonState == .locked ? Resource.Color.cardLockedTitle.swiftUIColor : Resource.Color.cardUnlockedTitle.swiftUIColor)
             .multilineTextAlignment(.center)
             .padding(.horizontal, Margin.regular)
     }
@@ -102,7 +102,9 @@ private extension RewardView {
     
     var buttonIcon: UIImage {
         switch store.state.buttonState {
-        case .readyToCollect, .collected:
+        case .collected:
+            return Resource.Image.check.image
+        case .readyToCollect:
             return Resource.Image.padlockUnlocked.image
         case .locked:
             return Resource.Image.padlockLocked.image

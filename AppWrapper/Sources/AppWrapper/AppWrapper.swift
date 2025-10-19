@@ -13,7 +13,13 @@ public struct AppWrapper: App {
 
     private let store = Store(
         initialState: Dashboard.State(),
-        reducer: { Dashboard()._printChanges() }
+        reducer: {
+            #if DEBUG
+            Dashboard()._printChanges()
+            #else
+            Dashboard()
+            #endif
+        }
     )
 
     public var body: some Scene {

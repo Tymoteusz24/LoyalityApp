@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import DataLayer
+import UIKit
 
 @Reducer
 public struct Dashboard {
@@ -251,16 +252,19 @@ extension Dashboard {
     ) -> Effect<Action> {
         switch action {
         case .rewardActivated(.success), .rewardDeactivated(.success):
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
             state.errorToast = nil
             return reloadAfterRewardChange()
             
         case .rewardActivated(.failure(_)):
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
             state.errorToast = "Failed to activate reward"
             // perform crashlytics non-fatal error logging here
             // Reload data to revert UI to actual state
             return reloadAfterRewardChange()
             
         case .rewardDeactivated(.failure(_)):
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
             state.errorToast = "Failed to deactivate reward"
             // perform crashlytics non-fatal error logging here
             // Reload data to revert UI to actual state

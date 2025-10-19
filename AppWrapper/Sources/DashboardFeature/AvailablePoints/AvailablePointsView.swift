@@ -30,8 +30,10 @@ private extension AvailablePointsView {
                     VStack(alignment: .leading, spacing: Margin.atomic) {
                         Text(Localized.errorAlertTitle)
                             .textStyle(.Header.medium)
+                            .foregroundStyle(Resource.Color.bannerCodeTitle.swiftUIColor)
                         Text(Localized.askToRetry)
                             .textStyle(.Body.medium)
+                            .foregroundStyle(Resource.Color.counterLoopSubtitle.swiftUIColor)
                     }
                     .transition(.opacity)
                 }
@@ -51,7 +53,7 @@ private extension AvailablePointsView {
     }
     
     func pointsView(_ points: Int) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: Margin.atomic) {
             Group {
                 Text("\(points) ").foregroundColor(Resource.Color.points.swiftUIColor) + Text(Localized.dashboardPointsSuffix)
             }
