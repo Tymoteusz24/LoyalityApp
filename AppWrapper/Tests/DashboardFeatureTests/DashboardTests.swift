@@ -11,7 +11,7 @@ struct DashboardTests {
     
     // MARK: - Load Data Tests
     
-    @Test("Load data successfully with all API calls succeeding")
+    @Test("Check load data update successfully collected state when active rewards are loaded after rewards")
     func loadDataSuccess() async {
         let mockCustomer = CustomerEntity(name: "John Doe")
         let mockRewards = [
@@ -91,7 +91,7 @@ struct DashboardTests {
             $0.rawRewards = mockRewards.map { RewardModel(entity: $0) }
         }
  
-        
+        // testing the rewards with collected state
         await store.receive { action in
             guard case .dataLoading(.activeRewardsLoaded(.success)) = action else {
                 return false

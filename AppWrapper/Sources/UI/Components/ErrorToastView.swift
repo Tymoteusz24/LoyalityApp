@@ -1,6 +1,6 @@
 //
 //  ErrorToastView.swift
-//  DashboardFeature
+//  UI
 //
 //  Created by Tymoteusz Pasieka on 10/19/25.
 //
