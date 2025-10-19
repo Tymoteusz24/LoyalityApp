@@ -7,7 +7,6 @@ public struct Dashboard {
     public struct State: Equatable {
         var customerHeader: CustomerHeader.State
         var availablePoints: AvailablePoints.State
-        
         var rewardsSection: RewardsSection
         
         // Store raw rewards data to recalculate button states when points load
@@ -17,20 +16,32 @@ public struct Dashboard {
     }
     
     public enum Action {
+        // Lifecycle actions
         case loadData
         case refreshData
         
+        // Data loading actions
+        case dataLoading(DataLoadingAction)
+        
+        // Reward management actions
+        case rewardManagement(RewardManagementAction)
+        
+        // Child reducer actions
+        case customerHeader(CustomerHeader.Action)
+        case availablePoints(AvailablePoints.Action)
+        case rewardsSection(IdentifiedActionOf<Reward>)
+    }
+    
+    public enum DataLoadingAction {
         case customerDataLoaded(Result<CustomerModel, Error>)
         case availablePointsLoaded(Result<UInt, Error>)
         case rewardsSectionLoaded(Result<[RewardModel], Error>)
         case activeRewardsLoaded(Result<[String], Error>)
-        
+    }
+    
+    public enum RewardManagementAction {
         case rewardActivated(Result<Void, Error>)
         case rewardDeactivated(Result<Void, Error>)
-        
-        case customerHeader(CustomerHeader.Action)
-        case availablePoints(AvailablePoints.Action)
-        case rewardsSection(IdentifiedActionOf<Reward>)
     }
 
     @Dependency(\.customerRemoteRepository) var customerRemoteRepository
@@ -38,273 +49,34 @@ public struct Dashboard {
     
     public init() {}
     
-    // MARK: - public methods
+    // MARK: - Reducer Body
     public var body: some ReducerOf<Self> {
-        Scope(
-            state: \.customerHeader,
-            action: \.customerHeader
-        ) {
+        Scope(state: \.customerHeader, action: \.customerHeader) {
             CustomerHeader()
         }
-        Scope(
-            state: \.availablePoints,
-            action: \.availablePoints
-        ) {
+        Scope(state: \.availablePoints, action: \.availablePoints) {
             AvailablePoints()
         }
         
-        Reduce {
-            state,
-            action in
+        Reduce { state, action in
             switch action {
-                // if we got some errors, just refresh parts that contains error, if no error states load all data again
-            case .refreshData:
-                var effects: [Effect<Action>] = []
-                
-                if case .error = state.customerHeader {
-                    state.customerHeader = .loading
-                    effects.append(
-                        .run { send in
-                            await send(
-                                .customerDataLoaded(
-                                    Result {
-                                        try await customerRemoteRepository.loadCustomer()
-                                    }
-                                )
-                            )
-                        }
-                    )
-                }
-                
-                if case .error = state.availablePoints {
-                    state.availablePoints = .loading
-                    effects.append(
-                        .run { send in
-                            await send(
-                                .availablePointsLoaded(
-                                    Result {
-                                        try await customerRemoteRepository.loadAvailablePoints()
-                                    }
-                                )
-                            )
-                        }
-                    )
-                }
-                
-                if case .error = state.rewardsSection {
-                    state.rewardsSection = .loading
-                    state.rawRewards = []
-                    state.collectedRewardIds = []
-                    effects.append(
-                        .run { send in
-                            await send(
-                                .rewardsSectionLoaded(
-                                    Result {
-                                        try await rewardsRemoteRepository.loadRewards()
-                                    }
-                                )
-                            )
-                        }
-                    )
-                    effects.append(
-                        .run { send in
-                            await send(
-                                .activeRewardsLoaded(
-                                    Result {
-                                        try await rewardsRemoteRepository.getActiveRewardIdentifiers()
-                                    }
-                                )
-                            )
-                        }
-                    )
-                }
-                
-                if effects.count > 0 {
-                    // If there were errors in header, points, or rewards, just reload those
-                    return .merge(effects)
-                } else {
-                    // load all data again
-                    return .send(.loadData)
-                }
             case .loadData:
-                state.customerHeader = CustomerHeader.State.loading
-                state.availablePoints = AvailablePoints.State.loading
-                state.rewardsSection = .loading
-                state.rawRewards = []
-                state.collectedRewardIds = []
+                return handleLoadData(state: &state)
                 
-                return .merge(
-                    .run { send in
-                        await send(
-                            .customerDataLoaded(
-                                Result {
-                                    try await customerRemoteRepository.loadCustomer()
-                                }
-                            )
-                        )
-                    },
-                    .run { send in
-                        await send(
-                            .availablePointsLoaded(
-                                Result {
-                                    let awaitRestult = try await customerRemoteRepository.loadAvailablePoints()
-                                   return awaitRestult
-                                }
-                            )
-                        )
-                    },
-                    .run { send in
-                        await send(
-                            .rewardsSectionLoaded(
-                                Result {
-                                    try await rewardsRemoteRepository.loadRewards()
-                                }
-                            )
-                        )
-                    },
-                    .run { send in
-                        await send(
-                            .activeRewardsLoaded(
-                                Result {
-                                    try await rewardsRemoteRepository.getActiveRewardIdentifiers()
-                                }
-                            )
-                        )
-                    }
-                )
+            case .refreshData:
+                return handleRefreshData(state: &state)
                 
-            case let .customerDataLoaded(.success(customerModel)):
-                state.customerHeader = .content(customerModel.name)
-                return .none
+            case let .dataLoading(dataAction):
+                return handleDataLoading(action: dataAction, state: &state)
                 
-            case let .customerDataLoaded(.failure(error)):
-                state.customerHeader = .error(error.localizedDescription)
-                return .none
+            case let .rewardManagement(rewardAction):
+                return handleRewardManagement(action: rewardAction, state: &state)
                 
-            case let .availablePointsLoaded(.success(points)):
-                state.availablePoints = .content(Int(points))
-                // Update rewards section with new available points
-                updateRewardsSection(state: &state)
-                return .none
-                
-            case .availablePointsLoaded(.failure):
-                state.availablePoints = .error
-                return .none
-            case let .rewardsSectionLoaded(.success(rewards)):
-                state.rawRewards = rewards
-                updateRewardsSection(state: &state)
-                return .none
-                
-            case .rewardsSectionLoaded(.failure):
-                state.rewardsSection = .error
-                return .none
-                
-            case let .activeRewardsLoaded(.success(activeIds)):
-                state.collectedRewardIds = Set(activeIds)
-                updateRewardsSection(state: &state)
-                return .none
-                
-            case let .activeRewardsLoaded(.failure(error)):
-                print("Error loading active rewards: \(error.localizedDescription)")
-                state.rewardsSection = .error
-                return .none
-                
-            case .rewardActivated(.success):
-                // After successful activation, reload active rewards and available points
-                return .merge(
-                    .run { send in
-                        await send(
-                            .activeRewardsLoaded(
-                                Result {
-                                    try await rewardsRemoteRepository.getActiveRewardIdentifiers()
-                                }
-                            )
-                        )
-                    },
-                    .run { send in
-                        await send(
-                            .availablePointsLoaded(
-                                Result {
-                                    try await customerRemoteRepository.loadAvailablePoints()
-                                }
-                            )
-                        )
-                    }
-                )
-                
-            case let .rewardActivated(.failure(error)):
-                print("Error activating reward: \(error.localizedDescription)")
-                // TODO: Could add error handling/UI feedback here
-                return .none
-                
-            case .rewardDeactivated(.success):
-                // After successful deactivation, reload active rewards and available points
-                return .merge(
-                    .run { send in
-                        await send(
-                            .activeRewardsLoaded(
-                                Result {
-                                    try await rewardsRemoteRepository.getActiveRewardIdentifiers()
-                                }
-                            )
-                        )
-                    },
-                    .run { send in
-                        await send(
-                            .availablePointsLoaded(
-                                Result {
-                                    try await customerRemoteRepository.loadAvailablePoints()
-                                }
-                            )
-                        )
-                    }
-                )
-                
-            case let .rewardDeactivated(.failure(error)):
-                print("Error deactivating reward: \(error.localizedDescription)")
-                // TODO: Could add error handling/UI feedback here
-                return .none
-                
-            case .customerHeader:
-                return .none
-                
-            case .availablePoints:
+            case .customerHeader, .availablePoints:
                 return .none
                 
             case let .rewardsSection(.element(id: id, action: .activateButtonTapped)):
-                // Find the reward that was tapped
-                guard case .content(let rewards) = state.rewardsSection,
-                      let reward = rewards[id: id] else {
-                    return .none
-                }
-                
-                // Check current state to determine if activating or deactivating
-                // The Reward reducer has already updated the buttonState locally
-                if reward.buttonState == .collected {
-                    // Just collected - call activate API, then reload data
-                    return .run { send in
-                        await send(
-                            .rewardActivated(
-                                Result {
-                                    try await rewardsRemoteRepository.activateReward(id)
-                                }
-                            )
-                        )
-                    }
-                } else if reward.buttonState == .readyToCollect {
-                    // Just uncollected - call deactivate API, then reload data
-                    return .run { send in
-                        await send(
-                            .rewardDeactivated(
-                                Result {
-                                    try await rewardsRemoteRepository.deactivateReward(id)
-                                }
-                            )
-                        )
-                    }
-                }
-                
-                return .none
+                return handleRewardTap(id: id, state: &state)
                 
             case .rewardsSection:
                 return .none
@@ -319,10 +91,206 @@ public struct Dashboard {
     }
 }
 
-// Mark: - Private methods
+// MARK: - Lifecycle Handlers
 extension Dashboard {
+    private func handleLoadData(state: inout State) -> Effect<Action> {
+        state.customerHeader = .loading
+        state.availablePoints = .loading
+        state.rewardsSection = .loading
+        state.rawRewards = []
+        state.collectedRewardIds = []
+        
+        return .merge(
+            loadCustomerEffect(),
+            loadAvailablePointsEffect(),
+            loadRewardsEffect(),
+            loadActiveRewardsEffect()
+        )
+    }
     
-    // Helper method to update rewards section with current available points
+    private func handleRefreshData(state: inout State) -> Effect<Action> {
+        var effects: [Effect<Action>] = []
+        
+        if case .error = state.customerHeader {
+            state.customerHeader = .loading
+            effects.append(loadCustomerEffect())
+        }
+        
+        if case .error = state.availablePoints {
+            state.availablePoints = .loading
+            effects.append(loadAvailablePointsEffect())
+        }
+        
+        if case .error = state.rewardsSection {
+            state.rewardsSection = .loading
+            state.rawRewards = []
+            state.collectedRewardIds = []
+            effects.append(loadRewardsEffect())
+            effects.append(loadActiveRewardsEffect())
+        }
+        
+        return effects.isEmpty ? .send(.loadData) : .merge(effects)
+    }
+}
+
+// MARK: - Effect Creators
+extension Dashboard {
+    private func loadCustomerEffect() -> Effect<Action> {
+        .run { send in
+            await send(
+                .dataLoading(.customerDataLoaded(
+                    Result { try await customerRemoteRepository.loadCustomer() }
+                ))
+            )
+        }
+    }
+    
+    private func loadAvailablePointsEffect() -> Effect<Action> {
+        .run { send in
+            await send(
+                .dataLoading(.availablePointsLoaded(
+                    Result { try await customerRemoteRepository.loadAvailablePoints() }
+                ))
+            )
+        }
+    }
+    
+    private func loadRewardsEffect() -> Effect<Action> {
+        .run { send in
+            await send(
+                .dataLoading(.rewardsSectionLoaded(
+                    Result { try await rewardsRemoteRepository.loadRewards() }
+                ))
+            )
+        }
+    }
+    
+    private func loadActiveRewardsEffect() -> Effect<Action> {
+        .run { send in
+            await send(
+                .dataLoading(.activeRewardsLoaded(
+                    Result { try await rewardsRemoteRepository.getActiveRewardIdentifiers() }
+                ))
+            )
+        }
+    }
+    
+    private func reloadAfterRewardChange() -> Effect<Action> {
+        .merge(
+            loadActiveRewardsEffect(),
+            loadAvailablePointsEffect()
+        )
+    }
+}
+
+// MARK: - Data Loading Handler
+extension Dashboard {
+    private func handleDataLoading(
+        action: DataLoadingAction,
+        state: inout State
+    ) -> Effect<Action> {
+        switch action {
+        case let .customerDataLoaded(.success(customerModel)):
+            state.customerHeader = .content(customerModel.name)
+            return .none
+            
+        case let .customerDataLoaded(.failure(error)):
+            state.customerHeader = .error(error.localizedDescription)
+            return .none
+            
+        case let .availablePointsLoaded(.success(points)):
+            state.availablePoints = .content(Int(points))
+            updateRewardsSection(state: &state)
+            return .none
+            
+        case .availablePointsLoaded(.failure):
+            // maybe we can use some error pareser to show different error states
+            // perform crashlytics non-fatal error logging here
+            state.availablePoints = .error
+            return .none
+            
+        case let .rewardsSectionLoaded(.success(rewards)):
+            state.rawRewards = rewards
+            updateRewardsSection(state: &state)
+            return .none
+            
+        case .rewardsSectionLoaded(.failure):
+            // maybe we can use some error pareser to show different error states
+            // perform crashlytics non-fatal error logging here
+            state.rewardsSection = .error
+            return .none
+            
+        case let .activeRewardsLoaded(.success(activeIds)):
+            state.collectedRewardIds = Set(activeIds)
+            updateRewardsSection(state: &state)
+            return .none
+        
+        // if we fail loading active rewards, we don't want toshow rewards section so user is not misled
+        case let .activeRewardsLoaded(.failure(error)):
+            state.rewardsSection = .error
+            return .none
+        }
+    }
+}
+
+// MARK: - Reward Management Handler
+extension Dashboard {
+    private func handleRewardManagement(
+        action: RewardManagementAction,
+        state: inout State
+    ) -> Effect<Action> {
+        switch action {
+        case .rewardActivated(.success), .rewardDeactivated(.success):
+            return reloadAfterRewardChange()
+        case let .rewardActivated(.failure(error)):
+            return .none
+            
+        case let .rewardDeactivated(.failure(error)):
+            return .none
+        }
+    }
+    
+    private func handleRewardTap(id: String, state: inout State) -> Effect<Action> {
+        guard case .content(let rewards) = state.rewardsSection,
+              let reward = rewards[id: id] else {
+            return .none
+        }
+        
+        switch reward.buttonState {
+        case .collected:
+            return activateRewardEffect(id: id)
+            
+        case .readyToCollect:
+            return deactivateRewardEffect(id: id)
+            
+        case .locked:
+            return .none
+        }
+    }
+    
+    private func activateRewardEffect(id: String) -> Effect<Action> {
+        .run { send in
+            await send(
+                .rewardManagement(.rewardActivated(
+                    Result { try await rewardsRemoteRepository.activateReward(id) }
+                ))
+            )
+        }
+    }
+    
+    private func deactivateRewardEffect(id: String) -> Effect<Action> {
+        .run { send in
+            await send(
+                .rewardManagement(.rewardDeactivated(
+                    Result { try await rewardsRemoteRepository.deactivateReward(id) }
+                ))
+            )
+        }
+    }
+}
+
+// MARK: - State Updates
+extension Dashboard {
     private func updateRewardsSection(state: inout State) {
         guard !state.rawRewards.isEmpty else { return }
         
@@ -334,7 +302,6 @@ extension Dashboard {
         }
         
         let rewards = IdentifiedArray(uniqueElements: state.rawRewards.map { rewardModel in
-            // Preserve collected state if reward was already collected
             let buttonState: Reward.State.ButtonState
             if state.collectedRewardIds.contains(rewardModel.id) {
                 buttonState = .collected

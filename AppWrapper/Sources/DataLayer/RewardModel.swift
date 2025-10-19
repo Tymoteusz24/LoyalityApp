@@ -21,7 +21,7 @@ public struct RewardModel: Equatable, Sendable {
         self.pointsCosts = pointsCosts
     }
     
-    init(entity: RewardEntity) {
+    public init(entity: RewardEntity) {
         self.id = entity.id
         self.name = entity.name
         self.coverURL = entity.coverURL
