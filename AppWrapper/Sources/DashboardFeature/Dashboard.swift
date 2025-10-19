@@ -1,5 +1,5 @@
 import ComposableArchitecture
-import RewardsAPI
+import DataLayer
 
 @Reducer
 public struct Dashboard {
@@ -11,7 +11,7 @@ public struct Dashboard {
         var rewardsSection: RewardsSection
         
         // Store raw rewards data to recalculate button states when points load
-        var rawRewards: [RewardEntity] = []
+        var rawRewards: [RewardModel] = []
         // Track collected reward IDs to preserve collected state
         var collectedRewardIds: Set<String> = []
     }
@@ -20,9 +20,9 @@ public struct Dashboard {
         case loadData
         case refreshData
         
-        case customerDataLoaded(Result<CustomerEntity, Error>)
+        case customerDataLoaded(Result<CustomerModel, Error>)
         case availablePointsLoaded(Result<UInt, Error>)
-        case rewardsSectionLoaded(Result<[RewardEntity], Error>)
+        case rewardsSectionLoaded(Result<[RewardModel], Error>)
         case activeRewardsLoaded(Result<[String], Error>)
         
         case rewardActivated(Result<Void, Error>)
@@ -33,7 +33,8 @@ public struct Dashboard {
         case rewardsSection(IdentifiedActionOf<Reward>)
     }
 
-    @Dependency(\.rewardsAPIClient) var rewardsAPIClient
+    @Dependency(\.customerRemoteRepository) var customerRemoteRepository
+    @Dependency(\.rewardsRemoteRepository) var rewardsRemoteRepository
     
     public init() {}
     
@@ -67,7 +68,7 @@ public struct Dashboard {
                             await send(
                                 .customerDataLoaded(
                                     Result {
-                                        try await rewardsAPIClient.loadCustomer()
+                                        try await customerRemoteRepository.loadCustomer()
                                     }
                                 )
                             )
@@ -82,7 +83,7 @@ public struct Dashboard {
                             await send(
                                 .availablePointsLoaded(
                                     Result {
-                                        try await rewardsAPIClient.loadAvailablePoints()
+                                        try await customerRemoteRepository.loadAvailablePoints()
                                     }
                                 )
                             )
@@ -99,7 +100,7 @@ public struct Dashboard {
                             await send(
                                 .rewardsSectionLoaded(
                                     Result {
-                                        try await rewardsAPIClient.loadRewards()
+                                        try await rewardsRemoteRepository.loadRewards()
                                     }
                                 )
                             )
@@ -110,7 +111,7 @@ public struct Dashboard {
                             await send(
                                 .activeRewardsLoaded(
                                     Result {
-                                        try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                        try await rewardsRemoteRepository.getActiveRewardIdentifiers()
                                     }
                                 )
                             )
@@ -137,7 +138,7 @@ public struct Dashboard {
                         await send(
                             .customerDataLoaded(
                                 Result {
-                                    try await rewardsAPIClient.loadCustomer()
+                                    try await customerRemoteRepository.loadCustomer()
                                 }
                             )
                         )
@@ -146,7 +147,7 @@ public struct Dashboard {
                         await send(
                             .availablePointsLoaded(
                                 Result {
-                                    let awaitRestult = try await rewardsAPIClient.loadAvailablePoints()
+                                    let awaitRestult = try await customerRemoteRepository.loadAvailablePoints()
                                    return awaitRestult
                                 }
                             )
@@ -156,7 +157,7 @@ public struct Dashboard {
                         await send(
                             .rewardsSectionLoaded(
                                 Result {
-                                    try await rewardsAPIClient.loadRewards()
+                                    try await rewardsRemoteRepository.loadRewards()
                                 }
                             )
                         )
@@ -165,15 +166,15 @@ public struct Dashboard {
                         await send(
                             .activeRewardsLoaded(
                                 Result {
-                                    try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                    try await rewardsRemoteRepository.getActiveRewardIdentifiers()
                                 }
                             )
                         )
                     }
                 )
                 
-            case let .customerDataLoaded(.success(customer)):
-                state.customerHeader = .content(customer.name)
+            case let .customerDataLoaded(.success(customerModel)):
+                state.customerHeader = .content(customerModel.name)
                 return .none
                 
             case let .customerDataLoaded(.failure(error)):
@@ -215,7 +216,7 @@ public struct Dashboard {
                         await send(
                             .activeRewardsLoaded(
                                 Result {
-                                    try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                    try await rewardsRemoteRepository.getActiveRewardIdentifiers()
                                 }
                             )
                         )
@@ -224,7 +225,7 @@ public struct Dashboard {
                         await send(
                             .availablePointsLoaded(
                                 Result {
-                                    try await rewardsAPIClient.loadAvailablePoints()
+                                    try await customerRemoteRepository.loadAvailablePoints()
                                 }
                             )
                         )
@@ -243,7 +244,7 @@ public struct Dashboard {
                         await send(
                             .activeRewardsLoaded(
                                 Result {
-                                    try await rewardsAPIClient.getActiveRewardIdentifiers()
+                                    try await rewardsRemoteRepository.getActiveRewardIdentifiers()
                                 }
                             )
                         )
@@ -252,7 +253,7 @@ public struct Dashboard {
                         await send(
                             .availablePointsLoaded(
                                 Result {
-                                    try await rewardsAPIClient.loadAvailablePoints()
+                                    try await customerRemoteRepository.loadAvailablePoints()
                                 }
                             )
                         )
@@ -285,7 +286,7 @@ public struct Dashboard {
                         await send(
                             .rewardActivated(
                                 Result {
-                                    try await rewardsAPIClient.activateReward(id)
+                                    try await rewardsRemoteRepository.activateReward(id)
                                 }
                             )
                         )
@@ -296,7 +297,7 @@ public struct Dashboard {
                         await send(
                             .rewardDeactivated(
                                 Result {
-                                    try await rewardsAPIClient.deactivateReward(id)
+                                    try await rewardsRemoteRepository.deactivateReward(id)
                                 }
                             )
                         )
@@ -332,12 +333,10 @@ extension Dashboard {
             availablePoints = 0
         }
         
-        let rewards = IdentifiedArray(uniqueElements: state.rawRewards.map { reward in
-            let rewardModel = RewardModel(entity: reward)
-            
+        let rewards = IdentifiedArray(uniqueElements: state.rawRewards.map { rewardModel in
             // Preserve collected state if reward was already collected
             let buttonState: Reward.State.ButtonState
-            if state.collectedRewardIds.contains(reward.id) {
+            if state.collectedRewardIds.contains(rewardModel.id) {
                 buttonState = .collected
             } else {
                 buttonState = availablePoints >= rewardModel.pointsCosts ? .readyToCollect : .locked

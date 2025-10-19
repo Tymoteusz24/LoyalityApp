@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DataLayer
 
 #if DEBUG
 extension Reward.State {
@@ -25,15 +26,6 @@ extension Reward.State {
             ),
             buttonState: buttonState
         )
-    }
-}
-
-extension RewardModel {
-    init(id: String, name: String, coverURL: URL, pointsCosts: Int) {
-        self.id = id
-        self.name = name
-        self.coverURL = coverURL
-        self.pointsCosts = pointsCosts
     }
 }
 #endif

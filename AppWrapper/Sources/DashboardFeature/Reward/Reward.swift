@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import ComposableArchitecture
-import RewardsAPI
+import DataLayer
 import Resources
 
 @Reducer
@@ -57,20 +57,5 @@ public struct Reward {
                 return .none
             }
         }
-    }
-}
-
-struct RewardModel: Equatable {
-    let id: String
-    let name: String
-    let coverURL: URL
-    let pointsCosts: Int
-    
-    init(entity: RewardEntity) {
-        self.id = entity.id
-        self.name = entity.name
-        self.coverURL = entity.coverURL
-        
-        self.pointsCosts = Int(entity.pointsCost)
     }
 }

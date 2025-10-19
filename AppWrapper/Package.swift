@@ -8,6 +8,7 @@ let packageName = "AppWrapper"
 enum Module: String {
     case appWrapper = "AppWrapper"
     case dashboardFeature = "DashboardFeature"
+    case dataLayer = "DataLayer"
     case localizations = "Localizations"
     case resources = "Resources"
     case ui = "UI"
@@ -32,6 +33,7 @@ let package = Package(
             name: Module.appWrapper.name,
             dependencies: [
                 .module(.dashboardFeature),
+                .module(.dataLayer),
                 .module(.ui),
             ]
         ),
@@ -40,6 +42,13 @@ let package = Package(
             dependencies: [
                 .module(.ui),
                 .module(.localizations),
+                .module(.dataLayer),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
+        ),
+        .target(
+            name: Module.dataLayer.name,
+            dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RewardsAPI", package: "RewardsAPI"),
             ]

@@ -1,10 +1,11 @@
 import DashboardFeature
 import ComposableArchitecture
+import DataLayer
 import SwiftUI
 import UI
 
 public struct AppWrapper: App {
-    @Dependency(\.rewardsAPIClient) var rewardsAPIClient
+    @Dependency(\.imageLoader) var imageLoader
     
     public init() {
         Appearance.setup()
@@ -19,8 +20,8 @@ public struct AppWrapper: App {
         WindowGroup {
             DashboardView(
                 store: store,
-                imageLoader: { [rewardsAPIClient] url in
-                    try await rewardsAPIClient.loadImage(url)
+                imageLoader: { [imageLoader] url in
+                    try await imageLoader.loadImage(url)
                 }
             )
         }
