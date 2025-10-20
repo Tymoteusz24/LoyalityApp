@@ -148,6 +148,7 @@ If you have any questions, send them to the addresses above.
 
 **UX Enhancements**
 - Display more contextual error messages
+- Sorting rewards so they show in the same order with each session
 
 **Testing**
 - Expand test coverage for edge cases

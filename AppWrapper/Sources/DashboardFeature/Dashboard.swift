@@ -17,6 +17,14 @@ public struct Dashboard {
         
         // Error toast state
         var errorToast: String?
+        
+        // Computed property to check if any data is currently loading
+        var isLoading: Bool {
+            if case .loading = customerHeader { return true }
+            if case .loading = availablePoints { return true }
+            if case .loading = rewardsSection { return true }
+            return false
+        }
     }
     
     public enum Action {
@@ -120,6 +128,9 @@ extension Dashboard {
     }
     
     private func handleRefreshData(state: inout State) -> Effect<Action> {
+        // Prevent duplicate requests if already loading
+        guard !state.isLoading else { return .none }
+        
         var effects: [Effect<Action>] = []
         
         if case .error = state.customerHeader {
