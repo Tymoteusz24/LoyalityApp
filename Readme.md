@@ -142,9 +142,6 @@ If you have any questions, send them to the addresses above.
 - Replace custom caching with production-ready library (Kingfisher/SDWebImage)
 - Add persistent disk cache with size limits and TTL
 
-**Data Loading**
-- Add mechanism to ensure rewards section only displays when both rewards and points are loaded (currently handled but could be more explicit)
-
 **State Management**
 - Evaluate if parallel loading complexity is justified vs simpler sequential loading
 
