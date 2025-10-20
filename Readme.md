@@ -141,7 +141,6 @@ If you have any questions, send them to the addresses above.
 
 **Data Loading**
 - Add mechanism to ensure rewards section only displays when both rewards and points are loaded (currently handled but could be more explicit)
-- Consider implementing request deduplication for rapid refresh scenarios
 
 **State Management**
 - Evaluate if parallel loading complexity is justified vs simpler sequential loading
