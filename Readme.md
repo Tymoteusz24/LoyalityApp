@@ -69,60 +69,63 @@ If you have any questions, send them to the addresses above.
 
 ### Architecture Decisions
 
-**DataLayer Module**
-- Created a separate `DataLayer` module with single-responsibility repositories (`CustomerRemoteRepository`, `RewardsRemoteRepository`, `ImageLoader`)
-- Follows the **Single Responsibility Principle** (SOLID) - each repository handles only one domain concern
-- Acts as an abstraction layer over the low-level `RewardsAPI`, decoupling it from feature modules
-- Enables reusability across future features without tight coupling to specific implementations
-- Introduced domain models (`CustomerModel`, `RewardModel`) that are independent of API entities
+**DataLayer Module**  
+- Created a separate `DataLayer` module with single-responsibility repositories (`CustomerRemoteRepository`, `RewardsRemoteRepository`, `ImageLoader`)  
+- Follows the **Single Responsibility Principle** (SOLID) - each repository handles only one domain concern  
+- Acts as an abstraction layer over the low-level `RewardsAPI`, decoupling it from feature modules  
+- Enables reusability across future features without tight coupling to specific implementations  
+- Introduced domain models (`CustomerModel`, `RewardModel`) that are independent of API entities  
 
-**Modular Architecture**
-- Clean separation of concerns with distinct modules:
-  - `DataLayer` - Data access and networking
-  - `DashboardFeature` - Business logic and state management
-  - `UI` - Reusable UI components
-  - `Resources` - Assets and localization
-- Each module has well-defined boundaries and dependencies
+**Modular Architecture**  
+- Clean separation of concerns with distinct modules:  
+  - `DataLayer` - Data access and networking  
+  - `DashboardFeature` - Business logic and state management  
+  - `UI` - Reusable UI components  
+  - `Resources` - Assets and localization  
+- Each module has well-defined boundaries and dependencies  
 
-**Composable Architecture (TCA)**
-- Leveraged TCA best practices throughout the application
-- Structured reducers with clear action hierarchies (`DataLoadingAction`, `RewardManagementAction`)
-- Dependency injection via TCA's `@Dependency` system for testability
-- Exhaustive testing with `TestStore`
+**Composable Architecture (TCA)**  
+- Leveraged TCA best practices throughout the application  
+- Structured reducers with clear action hierarchies (`DataLoadingAction`, `RewardManagementAction`)  
+- Dependency injection via TCA's `@Dependency` system for testability  
+- Exhaustive testing with `TestStore`  
 
-**Data Loading Strategy**
-- Implemented **parallel, independent data loading** for better UX and app responsiveness
-- Each section (customer, points, rewards) loads independently and updates UI as soon as data arrives
-- Handles partial failures gracefully - one section failing doesn't block others
-- **Trade-off**: More complex implementation vs simpler sequential loading
-  - ✅ Pros: Better perceived performance, resilient to partial failures, responsive UI
-  - ⚠️ Cons: More complex state management and edge cases
-  - **Decision**: This approach was chosen for optimal user experience, though business/product teams should evaluate if the added complexity is justified for future maintenance
+**Data Loading Strategy**  
+- Implemented **parallel, independent data loading** for better UX and app responsiveness  
+- Each section (customer, points, rewards) loads independently and updates UI as soon as data arrives  
+- Handles partial failures gracefully - one section failing doesn't block others  
+- **Trade-off**: More complex implementation vs simpler sequential loading  
+  - ✅ Pros: Better perceived performance, resilient to partial failures, responsive UI  
+  - ⚠️ Cons: More complex state management and edge cases  
+  - **Decision**: This approach was chosen for optimal user experience, though business/product teams should evaluate if the added complexity is justified for future maintenance  
 
-**Error Handling**
-- Comprehensive error handling with user-friendly error toast notifications
-- Graceful degradation - sections show error states independently
-- Pull-to-refresh retries only failed sections (intelligent retry logic)
-- No optimistic UI updates - UI always reflects actual server state to prevent confusion
-- API failures trigger data reload to ensure UI consistency
+**Error Handling**  
+- Comprehensive error handling with user-friendly error toast notifications  
+- Graceful degradation - sections show error states independently  
+- Pull-to-refresh retries only failed sections (intelligent retry logic)  
+- Prevents duplicate requests - pull-to-refresh is disabled while data is loading  
+- No optimistic UI updates - UI always reflects actual server state to prevent confusion  
+- API failures trigger data reload to ensure UI consistency  
 
-**Image Loading**
-- Custom `ImageLoader` with retry logic (3 attempts with exponential backoff)
-- Simple in-memory caching via `ImageCache` for session-level performance
-- **Note**: In a production app, this should be extended with:
-  - Persistent caching between sessions
-  - Cache eviction policies (LRU, size limits)
-  - Or use battle-tested third-party libraries like **Kingfisher** or **SDWebImage**
+**Image Loading**  
+- Custom `ImageLoader` with retry logic (3 attempts with exponential backoff)  
+- Simple in-memory caching via `ImageCache` for session-level performance  
+- **Note**: In a production app, this should be extended with:  
+  - Persistent caching between sessions  
+  - Cache eviction policies (LRU, size limits)  
+  - Or use battle-tested third-party libraries like **Kingfisher** or **SDWebImage**  
 
 ### Features Implemented
 
 ✅ Reward activation/deactivation with proper state management  
 ✅ Real-time points balance updates  
-✅ Loading states for all sections  
+✅ Loading states for all sections with shimmer loading effect for rewards  
 ✅ Error handling with user-friendly toast messages  
 ✅ Error recovery with pull-to-refresh  
+✅ Prevents duplicate API requests while loading  
 ✅ Image loading with automatic retry on failure  
 ✅ Locked/unlocked reward states based on points  
+✅ Haptic feedback for reward activation/deactivation (success/error)  
 ✅ UI consistency - reverts on API failures (no stale state)  
 ✅ Comprehensive unit tests for core reducer logic  
 ✅ Edge case handling (e.g., active rewards loading before/after rewards list)  
@@ -136,7 +139,7 @@ If you have any questions, send them to the addresses above.
 - Integrate crash reporting (e.g., Crashlytics) for non-fatal error logging
 
 **Image Loading**
-- Replace custom caching with production-ready library (Kingfisher/SDWebImage) or
+- Replace custom caching with production-ready library (Kingfisher/SDWebImage)
 - Add persistent disk cache with size limits and TTL
 
 **Data Loading**
@@ -147,7 +150,7 @@ If you have any questions, send them to the addresses above.
 
 **UX Enhancements**
 - Display more contextual error messages
-- Sorting rewards so they show in the same order with each session
+- Sort rewards to show in the same order with each session
 
 **Testing**
 - Expand test coverage for edge cases
