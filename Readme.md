@@ -1,4 +1,4 @@
-# Future Mind Take-Home Task
+# Recruitment Task
 
 This repo contains a simplistic version of a loyalty program app. User collects points through
 purchases and there are several rewards, which he can activate to claim them at the counter.
@@ -15,10 +15,6 @@ The user stories to implement are:
 **We ask you to implement these user stories in a way that you would do it in a regular, 
 production-ready application using your best judgement when it comes to architecture, patterns,
 development practices, optimal user experience etc.**
-
-### Figma mockups
-
-https://www.figma.com/file/dk9YXjwT5gPset1bDiJrH0/Task
 
 ### What will you find in this repository
 
@@ -52,17 +48,6 @@ Just like the original, it might throw exceptions when something goes wrong. You
 * handling of edge cases (including several non-obvious ones)
 * appropriate and effective use of design patterns
 * methods used to ensure the correctness and stability of implemented changes
-
-
-## Solution
-
-Please, check out to a new branch.
-
-To send the solved task, please create a private repository on bitbucket and share it with: 
-`p.sitek@futuremind.com`, `m.nowacki@futuremind.com`, `m.klimczak@futuremind.com`, `t.jurek@futuremind.com`.
-
-If you have any questions, send them to the addresses above.
-
 ---
 
 ## Implementation Details
